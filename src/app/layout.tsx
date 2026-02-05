@@ -1,25 +1,47 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Providers from './providers';
+import CustomCursor from '@/components/CustomCursor';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
-    title: 'Lovable App',
-    description: 'Lovable Generated Project',
-    authors: [{ name: 'Lovable' }],
+    title: {
+        default: 'Anurag Sharma | Full Stack & Blockchain Developer',
+        template: '%s | Anurag Sharma',
+    },
+    description: 'Portfolio of Anurag Sharma, a Full Stack & Blockchain Developer specializing in Next.js, Rust, Solidity, and scalable web applications.',
+    keywords: ['Full Stack Developer', 'Blockchain Developer', 'Next.js', 'React', 'Rust', 'Solidity', 'Web3', 'Portfolio', 'Anurag Sharma'],
+    authors: [{ name: 'Anurag Sharma' }],
+    creator: 'Anurag Sharma',
+    metadataBase: new URL('https://sharma-portfolio.vercel.app'),
     openGraph: {
-        title: 'Lovable App',
-        description: 'Lovable Generated Project',
         type: 'website',
-        images: ['https://lovable.dev/opengraph-image-p98pqg.png'],
+        locale: 'en_US',
+        url: 'https://sharma-portfolio.vercel.app',
+        title: 'Anurag Sharma | Full Stack & Blockchain Developer',
+        description: 'Building scalable applications with Next.js and Web3 technologies.',
+        siteName: 'Anurag Sharma Portfolio',
+        images: [
+            {
+                url: '/og-image.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'Anurag Sharma Portfolio',
+            },
+        ],
     },
     twitter: {
         card: 'summary_large_image',
-        site: '@Lovable',
-        images: ['https://lovable.dev/opengraph-image-p98pqg.png'],
+        title: 'Anurag Sharma | Full Stack & Blockchain Developer',
+        description: 'Building scalable applications with Next.js and Web3 technologies.',
+        images: ['/og-image.jpg'],
+        creator: '@SharmaAnurag99',
     },
+    icons: {
+        icon: '/favicon.svg',
+    },
+    manifest: '/site.webmanifest',
 };
-
-import CustomCursor from '@/components/CustomCursor';
 
 export default function RootLayout({
     children,
@@ -33,6 +55,7 @@ export default function RootLayout({
             </head>
             <body>
                 <Providers>
+                    <JsonLd />
                     <CustomCursor />
                     {children}
                 </Providers>
