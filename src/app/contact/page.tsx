@@ -4,11 +4,9 @@ import PageProgress from '@/components/PageProgress';
 import Contact from '@/components/Contact';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { useLenis } from '@/hooks/useLenis';
 import { useGsapAnimations } from '@/hooks/useGsapAnimations';
 
 export default function ContactPage() {
-    useLenis();
     useGsapAnimations();
 
     return (

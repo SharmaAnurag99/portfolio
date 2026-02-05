@@ -4,12 +4,13 @@ import Lenis from 'lenis';
 export const useLenis = () => {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.5,
+      duration: 2.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.2,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 2.0,
     });
 
     function raf(time: number) {
