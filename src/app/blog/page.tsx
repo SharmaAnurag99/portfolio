@@ -3,25 +3,29 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const blogs = [
+// Reusing the same data structure as the main component for consistency
+const technicalPosts = [
     {
-        date: 'February 4, 2026',
-        title: 'Why I chose Next.js for my Portfolio',
-        excerpt: 'Exploring the performance benefits and developer experience of the App Router and Server Components.',
-        category: 'Engineering'
+        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
+        category: 'Technical',
+        date: 'Aug 28',
+        title: 'Optimizing Next.js for Maximum Performance',
     },
     {
-        date: 'January 15, 2026',
-        title: 'Understanding Rust Ownership Model',
-        excerpt: 'A deep dive into memory safety without garbage collection and how it changes the way we think about system programming.',
-        category: 'Rust'
+        image: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&h=600&fit=crop',
+        category: 'Branding',
+        date: 'Aug 28',
+        title: 'Starting and Growing a Career in Web Design',
     },
+];
+
+const personalPosts = [
     {
-        date: 'December 20, 2025',
-        title: 'The Future of Decentralized Identity',
-        excerpt: 'How Internet Identity on ICP is paving the way for a password-less future in Web3.',
-        category: 'Web3'
-    }
+        image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&h=600&fit=crop',
+        category: 'Personal',
+        date: 'Aug 28',
+        title: 'My Journey into Tech',
+    },
 ];
 
 const Blog = () => {
@@ -37,23 +41,67 @@ const Blog = () => {
                         </p>
                     </div>
 
-                    <div className="grid gap-12 max-w-4xl">
-                        {blogs.map((post, index) => (
-                            <article key={index} className="group cursor-pointer border-b border-border pb-12 last:border-0 hover:opacity-80 transition-opacity">
-                                <div className="flex items-center gap-4 mb-4 text-sm">
-                                    <span className="font-mono text-muted-foreground">{post.date}</span>
-                                    <span className="px-3 py-1 bg-primary/10 text-primary rounded-full font-medium text-xs">
-                                        {post.category}
+                    {/* Technical Section */}
+                    <div className="mb-20">
+                        <h3 className="font-display text-3xl md:text-4xl mb-8">Technical</h3>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {technicalPosts.map((post, index) => (
+                                <article key={index} className="blog-card group cursor-pointer">
+                                    <div className="relative overflow-hidden rounded-2xl mb-6">
+                                        <img
+                                            src={post.image}
+                                            alt={post.title}
+                                            className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                    </div>
+                                    <div className="flex items-center gap-4 mb-3">
+                                        <span className="text-xs font-medium px-3 py-1 bg-muted rounded-full">
+                                            {post.category}
+                                        </span>
+                                        <span className="text-sm text-muted-foreground">Posted on {post.date}</span>
+                                    </div>
+                                    <h3 className="font-display text-2xl mb-4 group-hover:translate-x-2 transition-transform duration-300">
+                                        {post.title}
+                                    </h3>
+                                    <span className="inline-flex items-center gap-2 text-sm font-medium group/link">
+                                        Read more
+                                        {/* Simple arrow since imports might vary */}
+                                        <span className="group-hover/link:translate-x-1 transition-transform">→</span>
                                     </span>
-                                </div>
-                                <h2 className="font-display text-3xl md:text-4xl mb-4 group-hover:underline decoration-1 underline-offset-4">
-                                    {post.title}
-                                </h2>
-                                <p className="text-muted-foreground text-lg leading-relaxed">
-                                    {post.excerpt}
-                                </p>
-                            </article>
-                        ))}
+                                </article>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Personal Section */}
+                    <div>
+                        <h3 className="font-display text-3xl md:text-4xl mb-8">Personal</h3>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {personalPosts.map((post, index) => (
+                                <article key={index} className="blog-card group cursor-pointer">
+                                    <div className="relative overflow-hidden rounded-2xl mb-6">
+                                        <img
+                                            src={post.image}
+                                            alt={post.title}
+                                            className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
+                                    </div>
+                                    <div className="flex items-center gap-4 mb-3">
+                                        <span className="text-xs font-medium px-3 py-1 bg-muted rounded-full">
+                                            {post.category}
+                                        </span>
+                                        <span className="text-sm text-muted-foreground">Posted on {post.date}</span>
+                                    </div>
+                                    <h3 className="font-display text-2xl mb-4 group-hover:translate-x-2 transition-transform duration-300">
+                                        {post.title}
+                                    </h3>
+                                    <span className="inline-flex items-center gap-2 text-sm font-medium group/link">
+                                        Read more
+                                        <span className="group-hover/link:translate-x-1 transition-transform">→</span>
+                                    </span>
+                                </article>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </main>

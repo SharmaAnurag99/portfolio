@@ -7,28 +7,32 @@ import Footer from '@/components/Footer';
 
 const web2Projects = [
     {
-        image: '/Screenshot 2026-02-04 at 8.43.16 PM.png',
+        image: '/rekhaaji.png',
         title: 'AstroRekhaaji',
         description: 'Production service platform built with Next.js, Tailwind CSS, Cloudflare D1/R2, and PayPal. Features lead capture, email workflows, and end-to-end payment integration.',
-        tags: ['Next.js', 'Tailwind', 'Cloudflare D1', 'R2', 'Nodemailer', 'PayPal']
+        tags: ['Next.js', 'Tailwind', 'Cloudflare D1', 'R2', 'Nodemailer', 'PayPal'],
+        link: 'https://astrorekhaaji.com'
     },
     {
-        image: '/Screenshot 2026-02-04 at 8.44.17 PM.png',
+        image: '/riva.png',
         title: 'Riva Arts',
         description: 'Complete redesign of a legacy website to improve visual appeal, brand perception, and client inquiry flows.',
-        tags: ['Next.js', 'Tailwind', 'Supabase', 'Nodemailer', 'SEO']
+        tags: ['Next.js', 'Tailwind', 'Supabase', 'Nodemailer', 'SEO'],
+        link: 'https://www.rivaarts.in'
     },
     {
-        image: '/Screenshot 2026-02-04 at 8.45.55 PM.png',
+        image: '/lksharma.png',
         title: 'Astrol K Sharma',
         description: 'Full UI/UX redesign of a live Shopify website under strict constraints. Focused on performance, responsiveness, and usability without disrupting operations.',
-        tags: ['Shopify', 'Liquid', 'eCommerce', 'UI/UX']
+        tags: ['Shopify', 'Liquid', 'eCommerce', 'UI/UX'],
+        link: 'https://astrolksharma.com'
     },
     {
-        image: '/Screenshot 2026-02-04 at 8.44.45 PM.png',
+        image: '/aristohawk.png',
         title: 'Aristo Hawk HR',
         description: 'Business website for HR services with conversion-focused design, lead inquiry flows, and SEO-friendly information architecture.',
-        tags: ['Gatsby', 'SEO', 'React']
+        tags: ['Gatsby', 'SEO', 'React'],
+        link: 'https://aristohawkhr.com'
     },
 ];
 
@@ -47,7 +51,13 @@ const Web2Projects = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {web2Projects.map((project, index) => (
-                            <div key={index} className="group cursor-pointer">
+                            <a
+                                key={index}
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group cursor-pointer block"
+                            >
                                 <div className="relative overflow-hidden rounded-3xl aspect-video mb-6 border border-border/50">
                                     <Image
                                         src={project.image}
@@ -73,7 +83,7 @@ const Web2Projects = () => {
                                         </span>
                                     ))}
                                 </div>
-                            </div>
+                            </a>
                         ))}
                     </div>
                 </div>

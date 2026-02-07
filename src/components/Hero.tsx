@@ -45,17 +45,16 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right: Reviews / Social Proof */}
+          {/* Right: Tech Stack */}
           <div className="md:col-span-4 order-3 flex flex-col items-start md:items-end text-left md:text-right">
-            <div className="flex -space-x-3 mb-4">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="w-12 h-12 rounded-full border-2 border-background bg-muted flex items-center justify-center text-xs font-bold text-muted-foreground">
-                  C{i}
-                </div>
+            <div className="font-display text-2xl mb-4">Tech Stack</div>
+            <div className="flex flex-wrap justify-start md:justify-end gap-2 max-w-[200px]">
+              {['Next.js', 'React', 'TypeScript', 'Node.js', 'Solidity', 'Tailwind', 'Supabase'].map((tech) => (
+                <span key={tech} className="px-3 py-1 bg-muted rounded-full text-xs font-medium text-muted-foreground border border-border">
+                  {tech}
+                </span>
               ))}
             </div>
-            <p className="font-medium text-lg">Trusted by Clients</p>
-            <p className="text-muted-foreground text-sm">Delivering excellence in every project.</p>
           </div>
         </div>
       </div>

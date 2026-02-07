@@ -27,29 +27,34 @@ const CustomCursor = () => {
       });
     };
 
-    const handleMouseEnter = () => {
-      gsap.to(cursor, { scale: 1.5, duration: 0.3 });
+    // Use event delegation to handle hover effects for all elements, present and future
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Check if the target or its parent is interactive
+      const isInteractive = target.closest('a, button, [role="button"], input, select, textarea, .cursor-pointer');
+
+      if (isInteractive) {
+        gsap.to(cursor, { scale: 1.5, duration: 0.3 });
+      }
     };
 
-    const handleMouseLeave = () => {
-      gsap.to(cursor, { scale: 1, duration: 0.3 });
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const isInteractive = target.closest('a, button, [role="button"], input, select, textarea, .cursor-pointer');
+
+      if (isInteractive) {
+        gsap.to(cursor, { scale: 1, duration: 0.3 });
+      }
     };
 
     window.addEventListener('mousemove', moveCursor);
-
-    // Add hover effects to interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, [role="button"]');
-    interactiveElements.forEach((el) => {
-      el.addEventListener('mouseenter', handleMouseEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-    });
+    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mouseout', handleMouseOut);
 
     return () => {
       window.removeEventListener('mousemove', moveCursor);
-      interactiveElements.forEach((el) => {
-        el.removeEventListener('mouseenter', handleMouseEnter);
-        el.removeEventListener('mouseleave', handleMouseLeave);
-      });
+      window.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener('mouseout', handleMouseOut);
     };
   }, []);
 

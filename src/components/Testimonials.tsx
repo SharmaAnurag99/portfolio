@@ -17,6 +17,12 @@ const testimonials = [
     name: 'Vinit Vijal',
     role: 'Client',
   },
+  {
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face',
+    quote: 'Anurag transformed our outdated platform into a modern, high-performance web app. Highly recommended!',
+    name: 'Sarah Jenkins',
+    role: 'Director, TechFlow',
+  },
 ];
 
 const Testimonials = () => {
@@ -27,9 +33,9 @@ const Testimonials = () => {
           TESTINOMIALS
         </h2>
 
-        {/* First row - 2 cards */}
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          {testimonials.slice(0, 2).map((testimonial, index) => (
+        {/* Grid layout - 2x2 */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {testimonials.map((testimonial, index) => (
             <div
               key={index}
               className="testimonial-card bg-muted/50 p-8 rounded-3xl"
@@ -44,29 +50,6 @@ const Testimonials = () => {
               </p>
               <div>
                 <h4 className="font-display text-xl md:text-2xl">{testimonial.name}</h4>
-                <p className="text-muted-foreground text-sm">{testimonial.role}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Second row - 3 cards */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.slice(2).map((testimonial, index) => (
-            <div
-              key={index}
-              className="testimonial-card bg-muted/50 p-8 rounded-3xl"
-            >
-              <img
-                src={testimonial.image}
-                alt={testimonial.name}
-                className="w-14 h-14 rounded-full object-cover mb-6"
-              />
-              <p className="text-muted-foreground text-sm leading-relaxed mb-8">
-                {testimonial.quote}
-              </p>
-              <div>
-                <h4 className="font-display text-xl">{testimonial.name}</h4>
                 <p className="text-muted-foreground text-sm">{testimonial.role}</p>
               </div>
             </div>
