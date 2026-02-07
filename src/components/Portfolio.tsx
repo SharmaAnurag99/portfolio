@@ -1,13 +1,13 @@
 const projects = [
   {
-    image: '/Screenshot 2026-02-04 at 8.43.16 PM.png',
+    image: '/rekhaaji.png',
     category: 'WEB DEVELOPMENT',
     title: 'AstroRekhaaji',
     size: 'large',
     description: 'Production service platform built with Next.js, Tailwind CSS, Cloudflare D1/R2, and PayPal.'
   },
   {
-    image: '/Screenshot 2026-02-04 at 8.44.17 PM.png',
+    image: '/riva.png',
     category: 'WEB DEVELOPMENT',
     title: 'Riva Arts',
     size: 'large',
@@ -21,7 +21,7 @@ const projects = [
     description: 'Decentralized bounty system for GitHub-linked issues, Top 10 at Hive Hackathon.'
   },
   {
-    image: '/Screenshot 2026-02-04 at 8.45.55 PM.png',
+    image: '/lksharma.png',
     category: 'E-COMMERCE',
     title: 'Astrol K Sharma',
     size: 'small',
