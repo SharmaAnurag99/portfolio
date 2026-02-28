@@ -1,34 +1,34 @@
 const projects = [
   {
-    image: '/rekhaaji.png',
+    image: '/thumbnails/astrorekhaaji.png',
     category: 'WEB DEVELOPMENT',
     title: 'AstroRekhaaji',
     size: 'large',
     description: 'Production service platform built with Next.js, Tailwind CSS, Cloudflare D1/R2, and PayPal.'
   },
   {
-    image: '/riva.png',
+    image: '/thumbnails/riva_arts.png',
     category: 'WEB DEVELOPMENT',
     title: 'Riva Arts',
     size: 'large',
     description: 'Redesigned legacy website to improve visual appeal, brand perception, and client inquiry flows.'
   },
   {
-    image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=600&fit=crop',
+    image: '/thumbnails/hive_bounty.png',
     category: 'BLOCKCHAIN',
     title: 'Hive Bounty Platform',
     size: 'small',
     description: 'Decentralized bounty system for GitHub-linked issues, Top 10 at Hive Hackathon.'
   },
   {
-    image: '/lksharma.png',
+    image: '/thumbnails/astrol_k_sharma.png',
     category: 'E-COMMERCE',
     title: 'Astrol K Sharma',
     size: 'small',
     description: 'Shopify website redesign preserving business logic and payment integrations.'
   },
   {
-    image: 'https://images.unsplash.com/photo-1621504450168-b8c034d14187?w=800&h=600&fit=crop',
+    image: '/thumbnails/cross_chain_bridge.png',
     category: 'SMART CONTRACTS',
     title: 'Cross-Chain Bridge',
     size: 'small',
@@ -110,6 +110,42 @@ const Portfolio = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Coming Soon Section */}
+        <div className="mt-20 border-t border-border/50 pt-16">
+          <h3 className="font-display text-3xl md:text-4xl mb-8">Coming Soon</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-8 rounded-3xl bg-muted/30 border border-border/50 flex flex-col justify-center min-h-[250px] relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <h4 className="font-display text-2xl mb-3">AI Projects</h4>
+              <p className="text-muted-foreground">
+                Exploring the frontiers of machine learning, generative AI, and intelligent agents. Stay tuned for innovative prototypes and tools.
+              </p>
+              <div className="mt-6 flex items-center text-sm font-medium text-primary">
+                <span>In Development</span>
+                <span className="ml-2 flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                </span>
+              </div>
+            </div>
+
+            <div className="p-8 rounded-3xl bg-muted/30 border border-border/50 flex flex-col justify-center min-h-[250px] relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <h4 className="font-display text-2xl mb-3">Security Audits</h4>
+              <p className="text-muted-foreground">
+                Comprehensive vulnerability assessments, smart contract audits, and penetration testing methodologies to ensure robust system security.
+              </p>
+              <div className="mt-6 flex items-center text-sm font-medium text-primary">
+                <span>Planning Phase</span>
+                <span className="ml-2 flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" style={{ animationDelay: '0.5s' }}></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

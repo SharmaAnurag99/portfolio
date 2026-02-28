@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { MapPin, Headphones, Mail, Facebook, Linkedin, Github } from 'lucide-react';
+import { MapPin, Headphones, Mail, Facebook, Linkedin, Github, Send, MessageCircle } from 'lucide-react';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,14 +12,45 @@ const Contact = () => {
     subject: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      toast.error('Please fill in all fields');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send email');
+      }
+
+      toast.success('Message sent successfully! I will get back to you soon.');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      toast.error('Failed to send message. Please try again or reach out via WhatsApp.');
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleWhatsApp = () => {
+    window.open('https://wa.me/918318529481?text=Hi Anurag, I saw your portfolio and would like to connect!', '_blank');
   };
 
   return (
     <section id="contact" className="py-24 section-cream">
+      <Toaster position="bottom-right" />
       <div className="container mx-auto px-6">
         <h2 className="font-display text-5xl md:text-7xl mb-16 animate-on-scroll">
           CONTACT ME
@@ -135,14 +167,27 @@ const Contact = () => {
               />
             </div>
 
-            <Button
-              type="submit"
-              size="lg"
-              className="rounded-none px-10 py-6 text-base font-medium gap-2"
-            >
-              Send Me Message
-              <Mail size={18} />
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 pt-6">
+              <Button
+                type="submit"
+                size="lg"
+                disabled={isSubmitting}
+                className="h-14 px-8 rounded-full text-base font-medium flex-1 gap-2 bg-foreground text-background hover:scale-[1.02] hover:bg-foreground/90 transition-all duration-300 disabled:opacity-70 disabled:hover:scale-100"
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {!isSubmitting && <Send size={18} />}
+              </Button>
+
+              <Button
+                type="button"
+                size="lg"
+                onClick={handleWhatsApp}
+                className="h-14 px-8 rounded-full text-base font-medium flex-1 gap-2 bg-transparent text-foreground border-2 border-border hover:border-[#25D366] hover:text-[#25D366] hover:bg-[#25D366]/5 transition-all duration-300"
+              >
+                Let's Chat
+                <MessageCircle size={18} />
+              </Button>
+            </div>
           </form>
         </div>
       </div>

@@ -2,30 +2,68 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Link from 'next/link';
 
-// Reusing the same data structure as the main component for consistency
 const technicalPosts = [
     {
+        slug: 'optimizing-nextjs-performance',
         image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
         category: 'Technical',
         date: 'Aug 28',
         title: 'Optimizing Next.js for Maximum Performance',
     },
     {
+        slug: 'starting-web-design-career',
         image: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&h=600&fit=crop',
         category: 'Branding',
         date: 'Aug 28',
         title: 'Starting and Growing a Career in Web Design',
     },
+    {
+        slug: 'security-audits-necessity',
+        image: 'https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=800&h=600&fit=crop',
+        category: 'Security',
+        date: 'Oct 15',
+        title: 'Security Audits: Why Every Application Needs One',
+    },
+    {
+        slug: 'building-smart-ai-apps',
+        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop',
+        category: 'AI',
+        date: 'Oct 20',
+        title: 'How to Build Smart Applications With AI Integration',
+    },
+    {
+        slug: 'top-design-tips-ux',
+        image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop',
+        category: 'Design',
+        date: 'Nov 02',
+        title: 'Top Design Tips for Creating Engaging User Experiences',
+    },
 ];
 
 const personalPosts = [
     {
+        slug: 'my-journey-into-tech',
         image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&h=600&fit=crop',
         category: 'Personal',
         date: 'Aug 28',
         title: 'My Journey into Tech',
     },
+    {
+        slug: 'my-first-pay-milestone',
+        image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&h=600&fit=crop',
+        category: 'Career',
+        date: 'Feb 10',
+        title: 'My First Pay: The Milestone That Changed Everything',
+    },
+    {
+        slug: 'my-journey-as-teacher',
+        image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop',
+        category: 'Teaching',
+        date: 'Mar 05',
+        title: 'My Journey as a Teacher and Mentor in Tech',
+    }
 ];
 
 const Blog = () => {
@@ -63,11 +101,10 @@ const Blog = () => {
                                     <h3 className="font-display text-2xl mb-4 group-hover:translate-x-2 transition-transform duration-300">
                                         {post.title}
                                     </h3>
-                                    <span className="inline-flex items-center gap-2 text-sm font-medium group/link">
+                                    <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-sm font-medium group/link hover:text-primary transition-colors">
                                         Read more
-                                        {/* Simple arrow since imports might vary */}
                                         <span className="group-hover/link:translate-x-1 transition-transform">→</span>
-                                    </span>
+                                    </Link>
                                 </article>
                             ))}
                         </div>
@@ -95,10 +132,10 @@ const Blog = () => {
                                     <h3 className="font-display text-2xl mb-4 group-hover:translate-x-2 transition-transform duration-300">
                                         {post.title}
                                     </h3>
-                                    <span className="inline-flex items-center gap-2 text-sm font-medium group/link">
+                                    <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-sm font-medium group/link hover:text-primary transition-colors">
                                         Read more
                                         <span className="group-hover/link:translate-x-1 transition-transform">→</span>
-                                    </span>
+                                    </Link>
                                 </article>
                             ))}
                         </div>

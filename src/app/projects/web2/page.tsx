@@ -34,6 +34,34 @@ const web2Projects = [
         tags: ['Gatsby', 'SEO', 'React'],
         link: 'https://aristohawkhr.com'
     },
+    {
+        image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&h=600&fit=crop',
+        title: 'Art Show',
+        description: 'An interactive digital art gallery and exhibition platform designed for showcasing creative portfolios.',
+        tags: ['React', 'Next.js', 'Tailwind'],
+        link: 'https://artShow.sharmaanurag.in'
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&h=600&fit=crop',
+        title: 'Elite Cafe',
+        description: 'Modern and elegant restaurant website featuring a sleek online menu and automated reservation system.',
+        tags: ['Web Design', 'UI/UX', 'Frontend'],
+        link: 'https://elite-cafe.sharmaanurag.in'
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&h=600&fit=crop',
+        title: 'Travel Agency',
+        description: 'Comprehensive travel booking platform and destination guide with a clean, user-friendly interface.',
+        tags: ['Travel', 'Booking', 'Next.js'],
+        link: 'https://travelAgengy.sharmaanurag.in'
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&h=600&fit=crop',
+        title: 'Mojito Cafe',
+        description: 'A vibrant web presentation showcasing premium beverages, mixology services, and elegant cafe aesthetics.',
+        tags: ['Web Design', 'Next.js', 'React'],
+        link: 'https://mojito.sharmaanurag.in'
+    }
 ];
 
 const Web2Projects = () => {
