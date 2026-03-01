@@ -77,7 +77,7 @@ const Web2Projects = () => {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {web2Projects.map((project, index) => (
                             <a
                                 key={index}
@@ -100,7 +100,7 @@ const Web2Projects = () => {
                                     </div>
                                 </div>
 
-                                <h3 className="font-display text-3xl mb-3">{project.title}</h3>
+                                <h3 className="font-display text-2xl mb-3">{project.title}</h3>
                                 <p className="text-muted-foreground mb-4 leading-relaxed">
                                     {project.description}
                                 </p>
