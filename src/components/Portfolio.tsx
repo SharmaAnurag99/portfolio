@@ -74,7 +74,14 @@ import { getPayload } from 'payload'
 import configPromise from '../../payload.config'
 
 const Portfolio = async () => {
-  const projects = staticProjects; // Use the static projects for now
+  const payload = await getPayload({ config: configPromise })
+
+  const { docs: projects } = await payload.find({
+    collection: 'projects',
+    depth: 1,
+    limit: 5,
+    sort: '-createdAt'
+  })
 
   return (
     <section id="projects" className="portfolio-section section-cream py-24">
