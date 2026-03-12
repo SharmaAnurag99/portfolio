@@ -1,4 +1,38 @@
-const projects = [
+// const projects = [
+//   {
+//     image: '/thumbnails/astrorekhaaji.png',
+//     category: 'WEB DEVELOPMENT',
+//     title: 'AstroRekhaaji',
+//     size: 'large',
+//     description: 'Production service platform built with Next.js, Tailwind CSS, Cloudflare D1/R2, and PayPal.'
+//   },
+//   {
+//     image: '/thumbnails/riva_arts.png',
+//     category: 'WEB DEVELOPMENT',
+//     title: 'Riva Arts',
+//     size: 'large',
+//     description: 'Redesigned legacy website to improve visual appeal, brand perception, and client inquiry flows.'
+//   },
+//   {
+//     image: '/thumbnails/hive_bounty.png',
+//     category: 'BLOCKCHAIN',
+//     title: 'Hive Bounty Platform',
+//     size: 'small',
+//     description: 'Decentralized bounty system for GitHub-linked issues, Top 10 at Hive Hackathon.'
+//   },
+//   {
+//     image: '/thumbnails/astrol_k_sharma.png',
+//     category: 'E-COMMERCE',
+//     title: 'Astrol K Sharma',
+//     size: 'small',
+//     description: 'Shopify website redesign preserving business logic and payment integrations.'
+//   },
+//   {
+//     image: '/thumbnails/cross_chain_bridge.png',
+//     category: 'SMART CONTRACTS',
+//     title: 'Cross-Chain Bridge',
+//     size: 'small',
+const staticProjects = [
   {
     image: '/thumbnails/astrorekhaaji.png',
     category: 'WEB DEVELOPMENT',
@@ -36,7 +70,12 @@ const projects = [
   }
 ];
 
-const Portfolio = () => {
+import { getPayload } from 'payload'
+import configPromise from '../../payload.config'
+
+const Portfolio = async () => {
+  const projects = staticProjects; // Use the static projects for now
+
   return (
     <section id="projects" className="portfolio-section section-cream py-24">
       <div className="container mx-auto px-6 mb-12">
@@ -49,67 +88,73 @@ const Portfolio = () => {
         <div className="grid gap-6">
           {/* Top row - 2 large images */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {projects.slice(0, 2).map((project, index) => (
-              <div
-                key={index}
-                className="portfolio-item group cursor-pointer relative overflow-hidden h-[400px] md:h-[500px] rounded-3xl"
-              >
-                <img
-                  src={project.image}
-                  alt={project.title || 'Project'}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+            {projects.slice(0, 2).map((project: any, index: number) => {
+              const imageUrl = (typeof project.image === 'object' && project.image !== null ? project.image.url : null) || '/placeholder.svg'
+              return (
+                <div
+                  key={index}
+                  className="portfolio-item group cursor-pointer relative overflow-hidden h-[400px] md:h-[500px] rounded-3xl"
+                >
+                  <img
+                    src={imageUrl}
+                    alt={project.title || 'Project'}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
 
-                {/* Badge */}
-                <div className="absolute top-6 right-6">
-                  <span className="px-4 py-2 bg-black/40 backdrop-blur-md rounded-full text-xs font-medium text-white/90 uppercase tracking-wider">
-                    {project.category}
-                  </span>
-                </div>
+                  {/* Badge */}
+                  <div className="absolute top-6 right-6">
+                    <span className="px-4 py-2 bg-black/40 backdrop-blur-md rounded-full text-xs font-medium text-white/90 uppercase tracking-wider">
+                      FEATURED
+                    </span>
+                  </div>
 
-                {/* Overlay Content */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                  <h3 className="text-white font-display text-3xl md:text-4xl mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    {project.title}
-                  </h3>
-                  <p className="text-white/80 text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
-                    {project.description}
-                  </p>
+                  {/* Overlay Content */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <h3 className="text-white font-display text-3xl md:text-4xl mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      {project.title}
+                    </h3>
+                    <p className="text-white/80 text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
+                      {project.content}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
 
           {/* Bottom row - 3 smaller images */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {projects.slice(2).map((project, index) => (
-              <div
-                key={index + 2}
-                className="portfolio-item group cursor-pointer relative overflow-hidden h-[350px] md:h-[400px] rounded-3xl"
-              >
-                <img
-                  src={project.image}
-                  alt={project.category || 'Portfolio item'}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+            {projects.slice(2).map((project: any, index: number) => {
+              const imageUrl = (typeof project.image === 'object' && project.image !== null ? project.image.url : null) || '/placeholder.svg'
+              return (
+                <div
+                  key={index + 2}
+                  className="portfolio-item group cursor-pointer relative overflow-hidden h-[350px] md:h-[400px] rounded-3xl"
+                >
+                  <img
+                    src={imageUrl}
+                    alt={'Portfolio item'}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
 
-                {/* Badge */}
-                <div className="absolute top-6 right-6">
-                  <span className="px-4 py-2 bg-black/40 backdrop-blur-md rounded-full text-xs font-medium text-white/90 uppercase tracking-wider">
-                    {project.category}
-                  </span>
-                </div>
+                  {/* Badge */}
+                  <div className="absolute top-6 right-6">
+                    <span className="px-4 py-2 bg-black/40 backdrop-blur-md rounded-full text-xs font-medium text-white/90 uppercase tracking-wider">
+                      PROJECT
+                    </span>
+                  </div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
-                  <h3 className="text-white font-display text-2xl md:text-3xl mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    {project.title}
-                  </h3>
-                  <p className="text-white/80 text-sm translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75 line-clamp-2">
-                    {project.description}
-                  </p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6">
+                    <h3 className="text-white font-display text-2xl md:text-3xl mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      {project.title}
+                    </h3>
+                    <p className="text-white/80 text-sm translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75 line-clamp-2">
+                      {project.content}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
 

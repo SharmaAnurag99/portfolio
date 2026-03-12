@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useState } from 'react';
 import { ChevronUp } from 'lucide-react';
 
@@ -28,9 +29,8 @@ const PageProgress = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-8 right-8 z-50 w-14 h-14 rounded-full bg-background border border-border flex items-center justify-center transition-all duration-300 hover:scale-110 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
-      }`}
+      className={`fixed bottom-8 right-8 z-50 w-14 h-14 rounded-full bg-background border border-border flex items-center justify-center transition-all duration-300 hover:scale-110 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}
     >
       <svg className="absolute w-14 h-14 -rotate-90">
         <circle

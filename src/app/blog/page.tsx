@@ -1,10 +1,12 @@
-'use client';
-
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
+import { getPayload } from 'payload';
+// Path depends on nesting level, for `app/blog/page.tsx` it's `../../payload.config`
+import configPromise from '../../../payload.config';
 
-const technicalPosts = [
+/*
+const staticTechnicalPosts = [
     {
         slug: 'optimizing-nextjs-performance',
         image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
@@ -42,7 +44,7 @@ const technicalPosts = [
     },
 ];
 
-const personalPosts = [
+const staticPersonalPosts = [
     {
         slug: 'my-journey-into-tech',
         image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&h=600&fit=crop',
@@ -65,8 +67,43 @@ const personalPosts = [
         title: 'My Journey as a Teacher and Mentor in Tech',
     }
 ];
+*/
 
-const Blog = () => {
+export const dynamic = 'force-dynamic';
+
+const Blog = async () => {
+    const payload = await getPayload({ config: configPromise });
+
+    // Fetch Technical Posts
+    const techData = await payload.find({
+        collection: 'blogs',
+        where: {
+            and: [
+                { category: { not_equals: 'Personal' } },
+                { category: { not_equals: 'Career' } },
+                { category: { not_equals: 'Teaching' } }
+            ]
+        },
+        depth: 1,
+        limit: 100
+    });
+    const technicalPosts = techData.docs;
+
+    // Fetch Personal Posts
+    const personalData = await payload.find({
+        collection: 'blogs',
+        where: {
+            or: [
+                { category: { equals: 'Personal' } },
+                { category: { equals: 'Career' } },
+                { category: { equals: 'Teaching' } }
+            ]
+        },
+        depth: 1,
+        limit: 100
+    });
+    const personalPosts = personalData.docs;
+
     return (
         <div className="min-h-screen bg-background">
             <Header />
@@ -83,30 +120,33 @@ const Blog = () => {
                     <div className="mb-20">
                         <h3 className="font-display text-3xl md:text-4xl mb-8">Technical</h3>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {technicalPosts.map((post, index) => (
-                                <article key={index} className="blog-card group cursor-pointer">
-                                    <div className="relative overflow-hidden rounded-2xl mb-6">
-                                        <img
-                                            src={post.image}
-                                            alt={post.title}
-                                            className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
-                                        />
-                                    </div>
-                                    <div className="flex items-center gap-4 mb-3">
-                                        <span className="text-xs font-medium px-3 py-1 bg-muted rounded-full">
-                                            {post.category}
-                                        </span>
-                                        <span className="text-sm text-muted-foreground">Posted on {post.date}</span>
-                                    </div>
-                                    <h3 className="font-display text-2xl mb-4 group-hover:translate-x-2 transition-transform duration-300">
-                                        {post.title}
-                                    </h3>
-                                    <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-sm font-medium group/link hover:text-primary transition-colors">
-                                        Read more
-                                        <span className="group-hover/link:translate-x-1 transition-transform">→</span>
-                                    </Link>
-                                </article>
-                            ))}
+                            {technicalPosts.map((post: any, index: number) => {
+                                const imageUrl = (typeof post.image === 'object' && post.image !== null ? post.image.url : null) || '/placeholder.svg'
+                                return (
+                                    <article key={index} className="blog-card group cursor-pointer">
+                                        <div className="relative overflow-hidden rounded-2xl mb-6">
+                                            <img
+                                                src={imageUrl}
+                                                alt={post.title}
+                                                className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                        </div>
+                                        <div className="flex items-center gap-4 mb-3">
+                                            <span className="text-xs font-medium px-3 py-1 bg-muted rounded-full">
+                                                {post.category}
+                                            </span>
+                                            <span className="text-sm text-muted-foreground">Posted on {post.date}</span>
+                                        </div>
+                                        <h3 className="font-display text-2xl mb-4 group-hover:translate-x-2 transition-transform duration-300">
+                                            {post.title}
+                                        </h3>
+                                        <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-sm font-medium group/link hover:text-primary transition-colors">
+                                            Read more
+                                            <span className="group-hover/link:translate-x-1 transition-transform">→</span>
+                                        </Link>
+                                    </article>
+                                )
+                            })}
                         </div>
                     </div>
 
@@ -114,30 +154,33 @@ const Blog = () => {
                     <div>
                         <h3 className="font-display text-3xl md:text-4xl mb-8">Personal</h3>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {personalPosts.map((post, index) => (
-                                <article key={index} className="blog-card group cursor-pointer">
-                                    <div className="relative overflow-hidden rounded-2xl mb-6">
-                                        <img
-                                            src={post.image}
-                                            alt={post.title}
-                                            className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
-                                        />
-                                    </div>
-                                    <div className="flex items-center gap-4 mb-3">
-                                        <span className="text-xs font-medium px-3 py-1 bg-muted rounded-full">
-                                            {post.category}
-                                        </span>
-                                        <span className="text-sm text-muted-foreground">Posted on {post.date}</span>
-                                    </div>
-                                    <h3 className="font-display text-2xl mb-4 group-hover:translate-x-2 transition-transform duration-300">
-                                        {post.title}
-                                    </h3>
-                                    <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-sm font-medium group/link hover:text-primary transition-colors">
-                                        Read more
-                                        <span className="group-hover/link:translate-x-1 transition-transform">→</span>
-                                    </Link>
-                                </article>
-                            ))}
+                            {personalPosts.map((post: any, index: number) => {
+                                const imageUrl = (typeof post.image === 'object' && post.image !== null ? post.image.url : null) || '/placeholder.svg'
+                                return (
+                                    <article key={index} className="blog-card group cursor-pointer">
+                                        <div className="relative overflow-hidden rounded-2xl mb-6">
+                                            <img
+                                                src={imageUrl}
+                                                alt={post.title}
+                                                className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                        </div>
+                                        <div className="flex items-center gap-4 mb-3">
+                                            <span className="text-xs font-medium px-3 py-1 bg-muted rounded-full">
+                                                {post.category}
+                                            </span>
+                                            <span className="text-sm text-muted-foreground">Posted on {post.date}</span>
+                                        </div>
+                                        <h3 className="font-display text-2xl mb-4 group-hover:translate-x-2 transition-transform duration-300">
+                                            {post.title}
+                                        </h3>
+                                        <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-sm font-medium group/link hover:text-primary transition-colors">
+                                            Read more
+                                            <span className="group-hover/link:translate-x-1 transition-transform">→</span>
+                                        </Link>
+                                    </article>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>

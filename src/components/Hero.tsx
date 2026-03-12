@@ -7,7 +7,7 @@ const Hero = () => {
 
         {/* Main Name Heading */}
         <div className="flex flex-col items-center justify-center mb-16 md:mb-24">
-          <h1 className="hero-title font-display text-[15vw] leading-[0.8] text-center tracking-tight flex flex-col md:block">
+          <h1 className="hero-title font-display text-[20vw] md:text-[15vw] leading-[0.8] text-center tracking-tight flex flex-col md:block">
             <span className="inline-block relative z-10">SHARMA</span>
             <span className="inline-block text-muted-foreground/30 md:ml-8 relative z-0">ANURAG</span>
           </h1>
@@ -17,7 +17,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
 
           {/* Left: Role & description */}
-          <div className="md:col-span-4 order-2 md:order-1 ">
+          <div className="md:col-span-4 order-2 md:order-1 pt-0 md:pt-16">
             <div className="mb-6">
               <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium tracking-wide mb-3">
                 Founding Developer @ QodeML Labs
@@ -46,7 +46,7 @@ const Hero = () => {
           </div>
 
           {/* Right: Tech Stack */}
-          <div className="md:col-span-4 order-3 flex flex-col items-start md:items-end text-left md:text-right">
+          <div className="md:col-span-4 order-3 flex flex-col items-start md:items-end text-left md:text-right pt-0 md:pt-16">
             <div className="font-display text-2xl mb-4">Tech Stack</div>
             <div className="flex flex-wrap justify-start md:justify-end gap-2 max-w-[200px]">
               {['Next.js', 'React', 'TypeScript', 'Node.js', 'Solidity', 'Tailwind', 'Supabase'].map((tech) => (

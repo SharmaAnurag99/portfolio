@@ -5,7 +5,13 @@ import { ArrowLeft } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { notFound } from 'next/navigation';
+import { getPayload } from 'payload';
+import configPromise from '../../../../payload.config';
+import { RichText } from '@payloadcms/richtext-lexical/react'
 
+export const dynamic = 'force-dynamic';
+
+/*
 // Dummy content database (in a real app, this comes from a CMS or MDX files)
 const BLOG_DATABASE: Record<string, { title: string, date: string, category: string, image: string, content: React.ReactNode }> = {
     'optimizing-nextjs-performance': {
@@ -207,18 +213,28 @@ const BLOG_DATABASE: Record<string, { title: string, date: string, category: str
         )
     }
 };
+*/
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     // Await params in Next.js 15+
     const resolvedParams = await params;
 
-    // Try to find the blog post in our dummy database
-    const post = BLOG_DATABASE[resolvedParams.slug];
+    const payload = await getPayload({ config: configPromise });
+    const data = await payload.find({
+        collection: 'blogs',
+        where: { slug: { equals: resolvedParams.slug } },
+        depth: 1,
+        limit: 1
+    });
+
+    const post = data.docs[0];
 
     // If the slug doesn't match any of our dummy posts, show a 404 page
     if (!post) {
         notFound();
     }
+
+    const imageUrl = (typeof post.image === 'object' && post.image !== null ? post.image.url : null) || '/placeholder.svg'
 
     return (
         <div className="min-h-screen bg-[#fafafa]">
@@ -251,7 +267,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     <div className="w-full max-w-6xl mx-auto px-6 mb-16">
                         <div className="relative aspect-[2/1] w-full rounded-2xl overflow-hidden shadow-sm">
                             <Image
-                                src={post.image}
+                                src={imageUrl as string}
                                 alt={post.title}
                                 fill
                                 className="object-cover"
@@ -275,7 +291,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               prose-li:font-serif prose-li:text-[#242424]
               prose-a:text-primary prose-a:no-underline hover:prose-a:underline
             ">
-                            {post.content}
+                            {post.content && typeof post.content === 'object' ? (
+                                <RichText data={post.content} />
+                            ) : (
+                                <div dangerouslySetInnerHTML={{ __html: post.content as string }} />
+                            )}
                         </div>
 
                         <hr className="my-16 border-border" />

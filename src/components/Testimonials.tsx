@@ -1,4 +1,5 @@
-const testimonials = [
+/*
+const staticTestimonials = [
   {
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
     quote: 'Absolutely ecstatic with the results! The team delivered beyond our expectations, providing a platform that truly represents our vision.',
@@ -24,8 +25,26 @@ const testimonials = [
     role: 'ML Engineer at CBS',
   },
 ];
+*/
 
-const Testimonials = () => {
+export const dynamic = 'force-dynamic'
+import { getPayload } from 'payload'
+import configPromise from '../../payload.config'
+
+const Testimonials = async () => {
+  //initializing the cms
+  const payload = await getPayload({ config: configPromise })
+
+  //fetch all testimonials
+  const data = await payload.find({
+    collection: 'testimonials',
+    depth: 1,
+    limit: 100
+  })
+
+  //extract the array of documents
+  const testimonials = data.docs
+
   return (
     <section className="testimonials-section py-24 section-cream">
       <div className="container mx-auto px-6">
@@ -35,25 +54,29 @@ const Testimonials = () => {
 
         {/* Grid layout - 2x2 */}
         <div className="grid md:grid-cols-2 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="testimonial-card bg-muted/50 p-8 rounded-3xl"
-            >
-              <img
-                src={testimonial.image}
-                alt={testimonial.name}
-                className="w-16 h-16 rounded-full object-cover mb-6"
-              />
-              <p className="text-muted-foreground text-sm leading-relaxed mb-8">
-                {testimonial.quote}
-              </p>
-              <div>
-                <h4 className="font-display text-xl md:text-2xl">{testimonial.name}</h4>
-                <p className="text-muted-foreground text-sm">{testimonial.role}</p>
+          {testimonials.map((testimonial, index) => {
+
+            const imageUrl = (typeof testimonial.image === 'object' && testimonial.image !== null ? testimonial.image.url : testimonial.image) || '/placeholder.svg'
+            return (
+              <div
+                key={index}
+                className="testimonial-card bg-muted/50 p-8 rounded-3xl"
+              >
+                <img
+                  src={imageUrl}
+                  alt={testimonial.name}
+                  className="w-16 h-16 rounded-full object-cover mb-6"
+                />
+                <p className="text-muted-foreground text-sm leading-relaxed mb-8">
+                  {testimonial.content}
+                </p>
+                <div>
+                  <h4 className="font-display text-xl md:text-2xl">{testimonial.name}</h4>
+                  <p className="text-muted-foreground text-sm">{testimonial.role}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

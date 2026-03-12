@@ -1,4 +1,8 @@
+export const dynamic = 'force-dynamic'
+import { getPayload } from 'payload'
+import configPromise from '../../payload.config'
 
+/*
 const experiences = [
     {
         role: "Founding Developer",
@@ -25,8 +29,18 @@ const experiences = [
         description: "Analyzed 1M+ cryptocurrency tweets using Python and NLP. Built sentiment analysis pipelines with 85% classification accuracy. Studied correlation between sentiment trends and token price movements. Applied LLM-based models for enhanced trend forecasting."
     }
 ];
+*/
 
-const Experience = () => {
+const Experience = async () => {
+    const payload = await getPayload({ config: configPromise })
+    const data = await payload.find({
+        collection: 'education',
+        limit: 100,
+    })
+
+    // Sort logic wasn't explicit, assume payload returns in default or we can just map the docs
+    const experiences = data.docs;
+
     return (
         <section id="experience" className="py-24 bg-background">
             <div className="container mx-auto px-6">
@@ -42,29 +56,39 @@ const Experience = () => {
                     <div className="hidden md:block absolute left-[300px] top-0 bottom-0 w-px bg-border"></div>
 
                     <div className="space-y-16">
-                        {experiences.map((exp, index) => (
-                            <div key={index} className="relative grid md:grid-cols-[300px_1fr] gap-8 md:gap-0">
-                                {/* Date/Period */}
-                                <div className="md:pr-12 relative">
-                                    {/* Dot on the line */}
-                                    <div className="hidden md:block absolute right-[-5px] top-2 w-2.5 h-2.5 rounded-full bg-primary z-10 ring-4 ring-background"></div>
-                                    <span className="text-muted-foreground font-medium">{exp.period}</span>
-                                </div>
+                        {experiences.map((exp: any, index: number) => {
+                            // Recover our original fields from the generic Payload collection
+                            const [role, ...companyParts] = (exp.title || '').split(' at ');
+                            const company = companyParts.join(' at ');
 
-                                {/* Content */}
-                                <div className="md:pl-12 group">
-                                    <h3 className="text-2xl font-display mb-1 group-hover:text-primary transition-colors duration-300">
-                                        {exp.role}
-                                    </h3>
-                                    <div className="text-lg font-medium mb-4 text-foreground/80">
-                                        {exp.company}
+                            const contentParts = (exp.content || '').split('\n\n');
+                            const period = contentParts[contentParts.length - 1];
+                            const description = contentParts.slice(0, -1).join('\n\n');
+
+                            return (
+                                <div key={index} className="relative grid md:grid-cols-[300px_1fr] gap-8 md:gap-0">
+                                    {/* Date/Period */}
+                                    <div className="md:pr-12 relative">
+                                        {/* Dot on the line */}
+                                        <div className="hidden md:block absolute right-[-5px] top-2 w-2.5 h-2.5 rounded-full bg-primary z-10 ring-4 ring-background"></div>
+                                        <span className="text-muted-foreground font-medium">{period}</span>
                                     </div>
-                                    <p className="text-muted-foreground leading-relaxed max-w-2xl">
-                                        {exp.description}
-                                    </p>
+
+                                    {/* Content */}
+                                    <div className="md:pl-12 group">
+                                        <h3 className="text-2xl font-display mb-1 group-hover:text-primary transition-colors duration-300">
+                                            {role}
+                                        </h3>
+                                        <div className="text-lg font-medium mb-4 text-foreground/80">
+                                            {company}
+                                        </div>
+                                        <p className="text-muted-foreground leading-relaxed max-w-2xl whitespace-pre-wrap">
+                                            {description}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            )
+                        })}
                     </div>
                 </div>
             </div>

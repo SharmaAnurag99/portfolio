@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
-
+import { withPayload } from '@payloadcms/next/withPayload'
+/** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
@@ -11,6 +12,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  serverExternalPackages: ['undici', 'payload'],
 };
 
-export default nextConfig;
+export default withPayload(nextConfig)
+// export default nextConfig;
+
+
+
+
+

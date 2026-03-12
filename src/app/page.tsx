@@ -1,10 +1,7 @@
-'use client';
-
-
-import { useGsapAnimations } from '@/hooks/useGsapAnimations';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import LogoMarquee from '@/components/LogoMarquee';
+import ClientAnimationWrapper from '@/components/ClientAnimationWrapper';
 import About from '@/components/About';
 import Services from '@/components/Services';
 import Portfolio from '@/components/Portfolio';
@@ -16,23 +13,23 @@ import Experience from '@/components/Experience';
 import Skills from '@/components/Skills';
 
 const Home = () => {
-    useGsapAnimations();
-
     return (
-        <div className="min-h-screen bg-background cursor-none md:cursor-none">
-            <PageProgress />
-            <Header />
-            <Hero />
-            <LogoMarquee />
-            <About />
-            <Skills />
-            <Experience />
-            <Services />
-            <Portfolio />
-            <Testimonials />
-            <Contact />
-            <Footer />
-        </div>
+        <ClientAnimationWrapper>
+            <div className="min-h-screen bg-background cursor-none md:cursor-none">
+                <PageProgress />
+                <Header />
+                <Hero />
+                <LogoMarquee />
+                <About />
+                <Skills />
+                <Experience />
+                <Services />
+                <Portfolio />
+                <Testimonials />
+                <Contact />
+                <Footer />
+            </div>
+        </ClientAnimationWrapper>
     );
 };
 
