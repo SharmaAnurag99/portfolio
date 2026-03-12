@@ -2,8 +2,8 @@ const testimonials = [
   {
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
     quote: 'Absolutely ecstatic with the results! The team delivered beyond our expectations, providing a platform that truly represents our vision.',
-    name: 'AstroLK Sharma',
-    role: 'Client',
+    name: 'LK Sharma',
+    role: 'AstroScientist',
   },
   {
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
@@ -15,13 +15,13 @@ const testimonials = [
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face',
     quote: 'A game-changer for our business. The attention to detail and technical expertise shown throughout the process was impressive.',
     name: 'Vinit Vijal',
-    role: 'Client',
+    role: 'Founder QodeML Labs',
   },
   {
     image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face',
     quote: 'Anurag transformed our outdated platform into a modern, high-performance web app. Highly recommended!',
-    name: 'Sarah Jenkins',
-    role: 'Director, TechFlow',
+    name: 'Alkaif Ansari',
+    role: 'ML Engineer at CBS',
   },
 ];
 

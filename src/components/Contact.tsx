@@ -75,7 +75,7 @@ const Contact = () => {
               <div>
                 <Mail className="text-foreground mb-4" size={24} />
                 <h3 className="font-display text-lg mb-1">EMAIL ME:</h3>
-                <p className="text-muted-foreground">sharmaanurag9969@gmail.com</p>
+                <p className="text-muted-foreground">contact@sharmaanurag.in</p>
               </div>
 
               <div>
@@ -89,10 +89,10 @@ const Contact = () => {
                       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                     </svg>
                   </a>
-                  <a href="#" className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
+                  <a href="https://www.linkedin.com/in/sharma-anurag-umesh/" className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
                     <Linkedin size={18} />
                   </a>
-                  <a href="#" className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
+                  <a href="https://github.com/shaarmaanurag99" className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-foreground hover:text-background transition-colors">
                     <Github size={18} />
                   </a>
                 </div>
