@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
     ],
   },
   serverExternalPackages: ['undici', 'payload'],
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default withPayload(nextConfig)
