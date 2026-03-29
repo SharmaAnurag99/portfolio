@@ -27,23 +27,23 @@ const staticTestimonials = [
 ];
 */
 
-export const dynamic = 'force-dynamic'
 import { getPayload } from 'payload'
 import configPromise from '../../payload.config'
+import { resolveMediaUrl } from '@/lib/media'
+import { useCmsContent } from '@/lib/use-cms-content'
+import { localTestimonials } from '@/data/local/testimonials'
 
 const Testimonials = async () => {
-  //initializing the cms
-  const payload = await getPayload({ config: configPromise })
-
-  //fetch all testimonials
-  const data = await payload.find({
-    collection: 'testimonials',
-    depth: 1,
-    limit: 100
-  })
-
-  //extract the array of documents
-  const testimonials = data.docs
+  const cmsEnabled = useCmsContent()
+  const testimonials = cmsEnabled
+    ? (
+      await (await getPayload({ config: configPromise })).find({
+        collection: 'testimonials',
+        depth: 1,
+        limit: 100,
+      })
+    ).docs
+    : localTestimonials
 
   return (
     <section className="testimonials-section py-24 section-cream">
@@ -56,7 +56,7 @@ const Testimonials = async () => {
         <div className="grid md:grid-cols-2 gap-6">
           {testimonials.map((testimonial, index) => {
 
-            const imageUrl = (typeof testimonial.image === 'object' && testimonial.image !== null ? testimonial.image.url : testimonial.image) || '/placeholder.svg'
+            const imageUrl = cmsEnabled ? resolveMediaUrl(testimonial.image) : testimonial.image
             return (
               <div
                 key={index}

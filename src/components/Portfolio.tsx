@@ -32,56 +32,24 @@
 //     category: 'SMART CONTRACTS',
 //     title: 'Cross-Chain Bridge',
 //     size: 'small',
-const staticProjects = [
-  {
-    image: '/thumbnails/astrorekhaaji.png',
-    category: 'WEB DEVELOPMENT',
-    title: 'AstroRekhaaji',
-    size: 'large',
-    description: 'Production service platform built with Next.js, Tailwind CSS, Cloudflare D1/R2, and PayPal.'
-  },
-  {
-    image: '/thumbnails/riva_arts.png',
-    category: 'WEB DEVELOPMENT',
-    title: 'Riva Arts',
-    size: 'large',
-    description: 'Redesigned legacy website to improve visual appeal, brand perception, and client inquiry flows.'
-  },
-  {
-    image: '/thumbnails/hive_bounty.png',
-    category: 'BLOCKCHAIN',
-    title: 'Hive Bounty Platform',
-    size: 'small',
-    description: 'Decentralized bounty system for GitHub-linked issues, Top 10 at Hive Hackathon.'
-  },
-  {
-    image: '/thumbnails/astrol_k_sharma.png',
-    category: 'E-COMMERCE',
-    title: 'Astrol K Sharma',
-    size: 'small',
-    description: 'Shopify website redesign preserving business logic and payment integrations.'
-  },
-  {
-    image: '/thumbnails/cross_chain_bridge.png',
-    category: 'SMART CONTRACTS',
-    title: 'Cross-Chain Bridge',
-    size: 'small',
-    description: 'EVM-based token bridge implementation with nonce tracking and validator logic.'
-  }
-];
-
 import { getPayload } from 'payload'
 import configPromise from '../../payload.config'
+import { resolveMediaUrl } from '@/lib/media'
+import { useCmsContent } from '@/lib/use-cms-content'
+import { localPortfolioProjects } from '@/data/local/portfolio'
 
 const Portfolio = async () => {
-  const payload = await getPayload({ config: configPromise })
-
-  const { docs: projects } = await payload.find({
-    collection: 'projects',
-    depth: 1,
-    limit: 5,
-    sort: '-createdAt'
-  })
+  const cmsEnabled = useCmsContent()
+  const projects = cmsEnabled
+    ? (
+      await (await getPayload({ config: configPromise })).find({
+        collection: 'projects',
+        depth: 1,
+        limit: 5,
+        sort: '-createdAt',
+      })
+    ).docs
+    : localPortfolioProjects
 
   return (
     <section id="projects" className="portfolio-section section-cream py-24">
@@ -96,7 +64,7 @@ const Portfolio = async () => {
           {/* Top row - 2 large images */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.slice(0, 2).map((project: any, index: number) => {
-              const imageUrl = (typeof project.image === 'object' && project.image !== null ? project.image.url : null) || '/placeholder.svg'
+              const imageUrl = cmsEnabled ? resolveMediaUrl(project.image) : project.image
               return (
                 <div
                   key={index}
@@ -132,7 +100,7 @@ const Portfolio = async () => {
           {/* Bottom row - 3 smaller images */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {projects.slice(2).map((project: any, index: number) => {
-              const imageUrl = (typeof project.image === 'object' && project.image !== null ? project.image.url : null) || '/placeholder.svg'
+              const imageUrl = cmsEnabled ? resolveMediaUrl(project.image) : project.image
               return (
                 <div
                   key={index + 2}

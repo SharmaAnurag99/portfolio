@@ -1,0 +1,16 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blogA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="700" fill="url(#blogA)" />
+  <rect x="120" y="120" width="960" height="460" rx="24" fill="#0b1220" stroke="#334155" />
+  <rect x="180" y="180" width="700" height="30" rx="15" fill="#99f6e4" />
+  <rect x="180" y="235" width="820" height="16" rx="8" fill="#64748b" />
+  <rect x="180" y="265" width="760" height="16" rx="8" fill="#64748b" />
+  <rect x="180" y="295" width="620" height="16" rx="8" fill="#64748b" />
+  <rect x="180" y="355" width="220" height="42" rx="10" fill="#0d9488" />
+  <text x="600" y="645" font-size="42" fill="#ecfeff" text-anchor="middle" font-family="Arial, sans-serif">TECH ARTICLE</text>
+</svg>

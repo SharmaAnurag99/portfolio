@@ -4,6 +4,9 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getPayload } from 'payload';
 import configPromise from '../../../../payload.config';
+import { resolveMediaUrl } from '@/lib/media';
+import { useCmsContent } from '@/lib/use-cms-content';
+import { localWeb2Projects } from '@/data/local/projects-web2';
 
 /*
 const staticWeb2Projects = [
@@ -66,18 +69,17 @@ const staticWeb2Projects = [
 ];
 */
 
-export const dynamic = 'force-dynamic';
 
 const Web2Projects = async () => {
-    const payload = await getPayload({ config: configPromise });
-    const data = await payload.find({
-        collection: 'projects',
-        where: { category: { equals: 'WEB DEVELOPMENT' } },
-        depth: 1,
-        limit: 100
-    });
-
-    const web2Projects = data.docs;
+    const cmsEnabled = useCmsContent();
+    const web2Projects = cmsEnabled
+        ? (await (await getPayload({ config: configPromise })).find({
+            collection: 'projects',
+            where: { category: { equals: 'WEB DEVELOPMENT' } },
+            depth: 1,
+            limit: 100
+        })).docs
+        : localWeb2Projects;
 
     return (
         <div className="min-h-screen bg-background">
@@ -93,7 +95,7 @@ const Web2Projects = async () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {web2Projects.map((project: any, index: number) => {
-                            const imageUrl = (typeof project.image === 'object' && project.image !== null ? project.image.url : null) || '/placeholder.svg'
+                            const imageUrl = cmsEnabled ? resolveMediaUrl(project.image) : project.image
                             const targetUrl = project.url || '#'
 
                             return (

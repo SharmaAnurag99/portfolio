@@ -4,6 +4,9 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getPayload } from 'payload';
 import configPromise from '../../../../payload.config';
+import { resolveMediaUrl } from '@/lib/media';
+import { useCmsContent } from '@/lib/use-cms-content';
+import { localWeb3Projects } from '@/data/local/projects-web3';
 
 /*
 const staticWeb3Projects = [
@@ -28,18 +31,17 @@ const staticWeb3Projects = [
 ];
 */
 
-export const dynamic = 'force-dynamic';
 
 const Web3Projects = async () => {
-    const payload = await getPayload({ config: configPromise });
-    const data = await payload.find({
-        collection: 'projects',
-        where: { category: { equals: 'BLOCKCHAIN' } },
-        depth: 1,
-        limit: 100
-    });
-
-    const web3Projects = data.docs;
+    const cmsEnabled = useCmsContent();
+    const web3Projects = cmsEnabled
+        ? (await (await getPayload({ config: configPromise })).find({
+            collection: 'projects',
+            where: { category: { equals: 'BLOCKCHAIN' } },
+            depth: 1,
+            limit: 100
+        })).docs
+        : localWeb3Projects;
 
     return (
         <div className="min-h-screen bg-background">
@@ -55,7 +57,7 @@ const Web3Projects = async () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {web3Projects.map((project: any, index: number) => {
-                            const imageUrl = (typeof project.image === 'object' && project.image !== null ? project.image.url : null) || '/placeholder.svg'
+                            const imageUrl = cmsEnabled ? resolveMediaUrl(project.image) : project.image
                             const projectUrl = project.url || '#'
                             return (
                                 <a key={index} href={projectUrl} target="_blank" rel="noreferrer" className="group cursor-pointer block">

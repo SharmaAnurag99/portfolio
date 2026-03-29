@@ -1,4 +1,19 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+This is a [Next.js](https://nextjs.org) portfolio project with optional Payload CMS content.
+
+## Content Mode
+
+By default, the site runs in local-content mode (no CMS/database fetch required).
+
+- `NEXT_PUBLIC_USE_CMS_CONTENT=false` (default): local data + local images from `public/`
+- `NEXT_PUBLIC_USE_CMS_CONTENT=true`: enable Payload CMS queries for content
+
+If you want to use `/admin` and load content from Payload, set:
+
+```bash
+NEXT_PUBLIC_USE_CMS_CONTENT=true
+```
+
+and ensure your Payload/Mongo environment variables are configured.
 
 ## Getting Started
 

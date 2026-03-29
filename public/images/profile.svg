@@ -1,0 +1,19 @@
+<svg width="900" height="1200" viewBox="0 0 900 1200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="profileBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="profileAccent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1200" fill="url(#profileBg)" />
+  <circle cx="450" cy="410" r="180" fill="url(#profileAccent)" />
+  <rect x="230" y="650" width="440" height="300" rx="140" fill="#0b1220" stroke="#334155" />
+  <circle cx="390" cy="390" r="14" fill="#e2e8f0" />
+  <circle cx="510" cy="390" r="14" fill="#e2e8f0" />
+  <path d="M380 500 C420 550, 480 550, 520 500" stroke="#e2e8f0" stroke-width="12" fill="none" stroke-linecap="round" />
+  <text x="450" y="1080" font-size="48" fill="#cbd5e1" text-anchor="middle" font-family="Arial, sans-serif">ANURAG SHARMA</text>
+</svg>

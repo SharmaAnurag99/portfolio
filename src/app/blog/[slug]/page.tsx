@@ -8,8 +8,10 @@ import { notFound } from 'next/navigation';
 import { getPayload } from 'payload';
 import configPromise from '../../../../payload.config';
 import { RichText } from '@payloadcms/richtext-lexical/react'
+import { resolveMediaUrl } from '@/lib/media';
+import { useCmsContent } from '@/lib/use-cms-content';
+import { localBlogPosts } from '@/data/local/blog-posts';
 
-export const dynamic = 'force-dynamic';
 
 /*
 // Dummy content database (in a real app, this comes from a CMS or MDX files)
@@ -218,23 +220,22 @@ const BLOG_DATABASE: Record<string, { title: string, date: string, category: str
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     // Await params in Next.js 15+
     const resolvedParams = await params;
-
-    const payload = await getPayload({ config: configPromise });
-    const data = await payload.find({
-        collection: 'blogs',
-        where: { slug: { equals: resolvedParams.slug } },
-        depth: 1,
-        limit: 1
-    });
-
-    const post = data.docs[0];
+    const cmsEnabled = useCmsContent();
+    const post = cmsEnabled
+        ? (await (await getPayload({ config: configPromise })).find({
+            collection: 'blogs',
+            where: { slug: { equals: resolvedParams.slug } },
+            depth: 1,
+            limit: 1
+        })).docs[0]
+        : localBlogPosts.find((entry) => entry.slug === resolvedParams.slug);
 
     // If the slug doesn't match any of our dummy posts, show a 404 page
     if (!post) {
         notFound();
     }
 
-    const imageUrl = (typeof post.image === 'object' && post.image !== null ? post.image.url : null) || '/placeholder.svg'
+    const imageUrl = cmsEnabled ? resolveMediaUrl(post.image) : post.image
 
     return (
         <div className="min-h-screen bg-[#fafafa]">
@@ -291,7 +292,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               prose-li:font-serif prose-li:text-[#242424]
               prose-a:text-primary prose-a:no-underline hover:prose-a:underline
             ">
-                            {post.content && typeof post.content === 'object' ? (
+                            {cmsEnabled && post.content && typeof post.content === 'object' ? (
                                 <RichText data={post.content} />
                             ) : (
                                 <div dangerouslySetInnerHTML={{ __html: post.content as string }} />

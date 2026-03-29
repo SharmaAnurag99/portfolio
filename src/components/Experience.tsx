@@ -1,6 +1,7 @@
-export const dynamic = 'force-dynamic'
 import { getPayload } from 'payload'
 import configPromise from '../../payload.config'
+import { useCmsContent } from '@/lib/use-cms-content'
+import { localExperience } from '@/data/local/experience'
 
 /*
 const experiences = [
@@ -32,14 +33,13 @@ const experiences = [
 */
 
 const Experience = async () => {
-    const payload = await getPayload({ config: configPromise })
-    const data = await payload.find({
-        collection: 'education',
-        limit: 100,
-    })
-
-    // Sort logic wasn't explicit, assume payload returns in default or we can just map the docs
-    const experiences = data.docs;
+    const cmsEnabled = useCmsContent()
+    const experiences = cmsEnabled
+        ? (await (await getPayload({ config: configPromise })).find({
+            collection: 'education',
+            limit: 100,
+        })).docs
+        : localExperience;
 
     return (
         <section id="experience" className="py-24 bg-background">
@@ -57,13 +57,11 @@ const Experience = async () => {
 
                     <div className="space-y-16">
                         {experiences.map((exp: any, index: number) => {
-                            // Recover our original fields from the generic Payload collection
-                            const [role, ...companyParts] = (exp.title || '').split(' at ');
-                            const company = companyParts.join(' at ');
-
-                            const contentParts = (exp.content || '').split('\n\n');
-                            const period = contentParts[contentParts.length - 1];
-                            const description = contentParts.slice(0, -1).join('\n\n');
+                            const role = cmsEnabled ? (exp.title || '').split(' at ')[0] : exp.role;
+                            const company = cmsEnabled ? (exp.title || '').split(' at ').slice(1).join(' at ') : exp.company;
+                            const contentParts = cmsEnabled ? (exp.content || '').split('\n\n') : [];
+                            const period = cmsEnabled ? contentParts[contentParts.length - 1] : exp.period;
+                            const description = cmsEnabled ? contentParts.slice(0, -1).join('\n\n') : exp.description;
 
                             return (
                                 <div key={index} className="relative grid md:grid-cols-[300px_1fr] gap-8 md:gap-0">

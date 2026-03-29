@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { getPayload } from 'payload';
 // Path depends on nesting level, for `app/blog/page.tsx` it's `../../payload.config`
 import configPromise from '../../../payload.config';
+import { resolveMediaUrl } from '@/lib/media';
+import { useCmsContent } from '@/lib/use-cms-content';
+import { localBlogPosts, personalCategories } from '@/data/local/blog-posts';
 
 /*
 const staticTechnicalPosts = [
@@ -69,40 +72,45 @@ const staticPersonalPosts = [
 ];
 */
 
-export const dynamic = 'force-dynamic';
 
 const Blog = async () => {
-    const payload = await getPayload({ config: configPromise });
+    const cmsEnabled = useCmsContent();
+    let technicalPosts: any[] = [];
+    let personalPosts: any[] = [];
 
-    // Fetch Technical Posts
-    const techData = await payload.find({
-        collection: 'blogs',
-        where: {
-            and: [
-                { category: { not_equals: 'Personal' } },
-                { category: { not_equals: 'Career' } },
-                { category: { not_equals: 'Teaching' } }
-            ]
-        },
-        depth: 1,
-        limit: 100
-    });
-    const technicalPosts = techData.docs;
+    if (cmsEnabled) {
+        const payload = await getPayload({ config: configPromise });
+        const techData = await payload.find({
+            collection: 'blogs',
+            where: {
+                and: [
+                    { category: { not_equals: 'Personal' } },
+                    { category: { not_equals: 'Career' } },
+                    { category: { not_equals: 'Teaching' } }
+                ]
+            },
+            depth: 1,
+            limit: 100
+        });
+        technicalPosts = techData.docs;
 
-    // Fetch Personal Posts
-    const personalData = await payload.find({
-        collection: 'blogs',
-        where: {
-            or: [
-                { category: { equals: 'Personal' } },
-                { category: { equals: 'Career' } },
-                { category: { equals: 'Teaching' } }
-            ]
-        },
-        depth: 1,
-        limit: 100
-    });
-    const personalPosts = personalData.docs;
+        const personalData = await payload.find({
+            collection: 'blogs',
+            where: {
+                or: [
+                    { category: { equals: 'Personal' } },
+                    { category: { equals: 'Career' } },
+                    { category: { equals: 'Teaching' } }
+                ]
+            },
+            depth: 1,
+            limit: 100
+        });
+        personalPosts = personalData.docs;
+    } else {
+        technicalPosts = localBlogPosts.filter((post) => !personalCategories.has(post.category));
+        personalPosts = localBlogPosts.filter((post) => personalCategories.has(post.category));
+    }
 
     return (
         <div className="min-h-screen bg-background">
@@ -121,7 +129,7 @@ const Blog = async () => {
                         <h3 className="font-display text-3xl md:text-4xl mb-8">Technical</h3>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {technicalPosts.map((post: any, index: number) => {
-                                const imageUrl = (typeof post.image === 'object' && post.image !== null ? post.image.url : null) || '/placeholder.svg'
+                                const imageUrl = cmsEnabled ? resolveMediaUrl(post.image) : post.image
                                 return (
                                     <article key={index} className="blog-card group cursor-pointer">
                                         <div className="relative overflow-hidden rounded-2xl mb-6">
@@ -155,7 +163,7 @@ const Blog = async () => {
                         <h3 className="font-display text-3xl md:text-4xl mb-8">Personal</h3>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {personalPosts.map((post: any, index: number) => {
-                                const imageUrl = (typeof post.image === 'object' && post.image !== null ? post.image.url : null) || '/placeholder.svg'
+                                const imageUrl = cmsEnabled ? resolveMediaUrl(post.image) : post.image
                                 return (
                                     <article key={index} className="blog-card group cursor-pointer">
                                         <div className="relative overflow-hidden rounded-2xl mb-6">

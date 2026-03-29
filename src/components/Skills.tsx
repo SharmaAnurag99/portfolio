@@ -1,6 +1,7 @@
-export const dynamic = 'force-dynamic'
 import { getPayload } from 'payload'
 import configPromise from '../../payload.config'
+import { useCmsContent } from '@/lib/use-cms-content'
+import { localSkills } from '@/data/local/skills'
 
 /*
 const staticSkills = [
@@ -30,13 +31,19 @@ type SkillDoc = {
 }
 
 const Skills = async () => {
-    const payload = await getPayload({ config: configPromise })
-    const data = await payload.find({
-        collection: 'skills',
-        limit: 100,
-    })
-
-    const skillsData = data.docs as unknown as SkillDoc[];
+    const cmsEnabled = useCmsContent()
+    const skillsData = cmsEnabled
+        ? ((await (await getPayload({ config: configPromise })).find({
+            collection: 'skills',
+            limit: 100,
+        })).docs as unknown as SkillDoc[])
+        : localSkills.flatMap((group) =>
+            group.items.map((item) => ({
+                name: item.name,
+                category: group.category,
+                image: null,
+            }))
+        );
 
     // Group skills by category
     const groupedSkills = skillsData.reduce((acc, skill) => {

@@ -41,7 +41,7 @@ const Hero = () => {
             <div className="relative w-[350px] h-[450px] mt-[-100px] -translate-y-12 rotate-3 hover:rotate-0 transition-all duration-500 hover:translate-y-0 rounded-3xl overflow-hidden border-4 border-muted/20 grayscale hover:grayscale-0 transition-all duration-500">
 
               {/* Use this img tag when you have a photo */}
-              <img src="/myphoto.png" alt="Anurag Sharma" className="object-cover w-full h-full" />
+              <img src="/images/profile.svg" alt="Anurag Sharma" className="object-cover w-full h-full" />
             </div>
           </div>
 
