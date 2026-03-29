@@ -6,6 +6,8 @@ import React from 'react'
 
 import { importMap } from '../importMap'
 
+export const dynamic = 'force-dynamic'
+
 type Args = {
     children: React.ReactNode
 }
