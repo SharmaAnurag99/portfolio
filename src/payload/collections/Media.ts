@@ -1,8 +1,11 @@
 import { CollectionConfig } from "payload";
+import path from "path";
 
 export const Media: CollectionConfig = {
     slug: "media",
-    upload: true,
+    upload: {
+        staticDir: path.resolve(process.cwd(), 'public/media'),
+    },
     admin: {
         useAsTitle: "alt"
     },
