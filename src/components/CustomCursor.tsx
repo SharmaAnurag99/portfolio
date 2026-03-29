@@ -25,8 +25,8 @@ const CustomCursor = () => {
         const dx = targetX - prev.x;
         const dy = targetY - prev.y;
         return {
-          x: prev.x + dx * 0.15,
-          y: prev.y + dy * 0.15,
+          x: prev.x + dx * 0.25,
+          y: prev.y + dy * 0.25,
         };
       });
       animationFrameId = requestAnimationFrame(animateDot);
