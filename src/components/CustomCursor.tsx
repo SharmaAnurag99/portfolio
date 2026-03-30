@@ -1,8 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 const CustomCursor = () => {
+  const pathname = usePathname();
+  const isPayloadAdmin = pathname?.startsWith('/admin');
+
+  if (isPayloadAdmin) return null;
+
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [dotPosition, setDotPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
@@ -62,7 +68,7 @@ const CustomCursor = () => {
     };
   }, []);
 
-  if (!isVisible && typeof window !== 'undefined') return null;
+  if (!isVisible) return null;
 
   return (
     <>
