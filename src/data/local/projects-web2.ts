@@ -39,4 +39,36 @@ export const localWeb2Projects: LocalProject[] = [
     tags: [{ tag: 'Gatsby' }, { tag: 'React' }, { tag: 'SEO' }],
     url: 'https://aristohawkhr.com',
   },
+  {
+    image: '/images/project-a.svg',
+    title: 'Art Show',
+    content:
+      'Interactive digital art gallery and exhibition platform for showcasing creative portfolios.',
+    tags: [{ tag: 'React' }, { tag: 'Next.js' }, { tag: 'Tailwind' }],
+    url: 'https://artshow.sharmaanurag.in',
+  },
+  {
+    image: '/images/project-b.svg',
+    title: 'Elite Cafe',
+    content:
+      'Modern restaurant website with online menu and reservation-focused customer flow.',
+    tags: [{ tag: 'Web Design' }, { tag: 'UI/UX' }, { tag: 'Frontend' }],
+    url: 'https://elite-cafe.sharmaanurag.in',
+  },
+  {
+    image: '/images/project-c.svg',
+    title: 'Travel Agency',
+    content:
+      'Comprehensive travel booking platform and destination guide with clean UX.',
+    tags: [{ tag: 'Travel' }, { tag: 'Booking' }, { tag: 'Next.js' }],
+    url: 'https://travelagency.sharmaanurag.in',
+  },
+  {
+    image: '/images/project-a.svg',
+    title: 'Mojito Cafe',
+    content:
+      'Vibrant website presentation for premium beverages and cafe brand storytelling.',
+    tags: [{ tag: 'Web Design' }, { tag: 'Next.js' }, { tag: 'React' }],
+    url: 'https://mojito.sharmaanurag.in',
+  },
 ];

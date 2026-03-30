@@ -112,6 +112,9 @@ const Blog = async () => {
         personalPosts = localBlogPosts.filter((post) => personalCategories.has(post.category));
     }
 
+    const visibleTechnicalPosts = technicalPosts.slice(0, 1);
+    const visiblePersonalPosts = personalPosts.slice(0, 1);
+
     return (
         <div className="min-h-screen bg-background">
             <Header />
@@ -128,7 +131,7 @@ const Blog = async () => {
                     <div className="mb-20">
                         <h3 className="font-display text-3xl md:text-4xl mb-8">Technical</h3>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {technicalPosts.map((post: any, index: number) => {
+                            {visibleTechnicalPosts.map((post: any, index: number) => {
                                 const imageUrl = cmsEnabled ? resolveMediaUrl(post.image) : post.image
                                 return (
                                     <article key={index} className="blog-card group cursor-pointer">
@@ -162,7 +165,7 @@ const Blog = async () => {
                     <div>
                         <h3 className="font-display text-3xl md:text-4xl mb-8">Personal</h3>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {personalPosts.map((post: any, index: number) => {
+                            {visiblePersonalPosts.map((post: any, index: number) => {
                                 const imageUrl = cmsEnabled ? resolveMediaUrl(post.image) : post.image
                                 return (
                                     <article key={index} className="blog-card group cursor-pointer">
