@@ -107,12 +107,32 @@ export default {
             transform: "scale(1)",
           },
         },
+        "route-loader-scan": {
+          "0%": { transform: "translateX(-120%)" },
+          "100%": { transform: "translateX(120%)" },
+        },
+        "route-loader-letter": {
+          "0%, 100%": { opacity: "0.2", transform: "translateY(0.15em)" },
+          "50%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "route-loader-orbit": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "route-loader-dash": {
+          "0%": { strokeDashoffset: "120" },
+          "100%": { strokeDashoffset: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-up": "fade-up 0.8s ease-out forwards",
         "scale-in": "scale-in 0.6s ease-out forwards",
+        "route-loader-scan": "route-loader-scan 1.15s cubic-bezier(0.45, 0, 0.2, 1) infinite",
+        "route-loader-letter": "route-loader-letter 0.9s ease-in-out infinite",
+        "route-loader-orbit": "route-loader-orbit 14s linear infinite",
+        "route-loader-dash": "route-loader-dash 1.4s ease-in-out infinite alternate",
       },
     },
   },

@@ -3,6 +3,7 @@ import './globals.css';
 import Providers from './providers';
 import CustomCursor from '@/components/CustomCursor';
 import JsonLd from '@/components/JsonLd';
+import RouteTransitionLoader from '@/components/RouteTransitionLoader';
 
 export const metadata: Metadata = {
     title: {
@@ -57,6 +58,7 @@ export default function RootLayout({
                 <Providers>
                     <JsonLd />
                     <CustomCursor />
+                    <RouteTransitionLoader />
                     {children}
                 </Providers>
             </body>
