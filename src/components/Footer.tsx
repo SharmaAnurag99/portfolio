@@ -7,16 +7,16 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-20">
           {/* Social Links */}
           <div className="flex items-center gap-6">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-primary-foreground/5 hover:bg-primary-foreground/10 text-primary-foreground transition-colors">
+            <a href="https://github.com/SharmaAnurag99" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-primary-foreground/5 hover:bg-primary-foreground/10 text-primary-foreground transition-colors">
               <Github size={20} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-primary-foreground/5 hover:bg-primary-foreground/10 text-primary-foreground transition-colors">
+            <a href="https://linkedin.com/in/sharma-anurag-umesh" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-primary-foreground/5 hover:bg-primary-foreground/10 text-primary-foreground transition-colors">
               <Linkedin size={20} />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-primary-foreground/5 hover:bg-primary-foreground/10 text-primary-foreground transition-colors">
+            <a href="https://twitter.com/SharmaAnurag99" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-primary-foreground/5 hover:bg-primary-foreground/10 text-primary-foreground transition-colors">
               <Twitter size={20} />
             </a>
-            <a href="mailto:hello@example.com" className="p-3 rounded-full bg-primary-foreground/5 hover:bg-primary-foreground/10 text-primary-foreground transition-colors">
+            <a href="mailto:contact@sharmaanurag.in" className="p-3 rounded-full bg-primary-foreground/5 hover:bg-primary-foreground/10 text-primary-foreground transition-colors">
               <Mail size={20} />
             </a>
           </div>

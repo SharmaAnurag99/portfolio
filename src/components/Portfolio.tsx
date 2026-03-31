@@ -51,6 +51,15 @@ const Portfolio = async () => {
     ).docs
     : localPortfolioProjects
 
+  const getProjectUrl = (project: any) => {
+    if (project?.url && project.url !== '#') return project.url
+
+    const category = (project?.category || '').toUpperCase()
+    if (category.includes('WEB')) return '/projects/web2'
+    if (category.includes('BLOCKCHAIN') || category.includes('SMART')) return '/projects/web3'
+    return '/projects/web2'
+  }
+
   return (
     <section id="projects" className="portfolio-section section-cream py-24">
       <div className="container mx-auto px-6 mb-12">
@@ -66,8 +75,11 @@ const Portfolio = async () => {
             {projects.slice(0, 2).map((project: any, index: number) => {
               const imageUrl = cmsEnabled ? resolveMediaUrl(project.image) : project.image
               return (
-                <div
+                <a
                   key={index}
+                  href={getProjectUrl(project)}
+                  target={getProjectUrl(project).startsWith('http') ? '_blank' : undefined}
+                  rel={getProjectUrl(project).startsWith('http') ? 'noopener noreferrer' : undefined}
                   className="portfolio-item group cursor-pointer relative overflow-hidden h-[400px] md:h-[500px] rounded-3xl"
                 >
                   <img
@@ -92,7 +104,7 @@ const Portfolio = async () => {
                       {project.content}
                     </p>
                   </div>
-                </div>
+                </a>
               )
             })}
           </div>
@@ -102,8 +114,11 @@ const Portfolio = async () => {
             {projects.slice(2).map((project: any, index: number) => {
               const imageUrl = cmsEnabled ? resolveMediaUrl(project.image) : project.image
               return (
-                <div
+                <a
                   key={index + 2}
+                  href={getProjectUrl(project)}
+                  target={getProjectUrl(project).startsWith('http') ? '_blank' : undefined}
+                  rel={getProjectUrl(project).startsWith('http') ? 'noopener noreferrer' : undefined}
                   className="portfolio-item group cursor-pointer relative overflow-hidden h-[350px] md:h-[400px] rounded-3xl"
                 >
                   <img
@@ -127,7 +142,7 @@ const Portfolio = async () => {
                       {project.content}
                     </p>
                   </div>
-                </div>
+                </a>
               )
             })}
           </div>
