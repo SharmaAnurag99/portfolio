@@ -3,7 +3,7 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { getPayload } from 'payload';
 // Path depends on nesting level, for `app/blog/page.tsx` it's `../../payload.config`
-import configPromise from '../../../payload.config';
+import configPromise from '../../../../payload.config';
 import { resolveMediaUrl } from '@/lib/media';
 import { useCmsContent } from '@/lib/use-cms-content';
 import { localBlogPosts, personalCategories } from '@/data/local/blog-posts';

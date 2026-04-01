@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { getPayload } from 'payload';
-import configPromise from '../../../../payload.config';
+import configPromise from '../../../../../payload.config';
 import { resolveMediaUrl } from '@/lib/media';
 import { useCmsContent } from '@/lib/use-cms-content';
 import { localWeb2Projects } from '@/data/local/projects-web2';

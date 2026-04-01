@@ -1,9 +1,4 @@
 import type { Metadata } from 'next';
-import './globals.css';
-import Providers from './providers';
-import CustomCursor from '@/components/CustomCursor';
-import JsonLd from '@/components/JsonLd';
-import RouteTransitionLoader from '@/components/RouteTransitionLoader';
 
 export const metadata: Metadata = {
     title: {
@@ -54,14 +49,7 @@ export default function RootLayout({
             <head>
                 <link rel="icon" href="/favicon.ico" sizes="any" />
             </head>
-            <body>
-                <Providers>
-                    <JsonLd />
-                    <CustomCursor />
-                    <RouteTransitionLoader />
-                    {children}
-                </Providers>
-            </body>
+            <body>{children}</body>
         </html>
     );
 }

@@ -6,7 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { notFound } from 'next/navigation';
 import { getPayload } from 'payload';
-import configPromise from '../../../../payload.config';
+import configPromise from '../../../../../payload.config';
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { resolveMediaUrl } from '@/lib/media';
 import { useCmsContent } from '@/lib/use-cms-content';
