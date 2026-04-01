@@ -1,14 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
 
+/** Only mounted from `(site)` layout — not used on `/admin`. */
 const CustomCursor = () => {
-  const pathname = usePathname();
-  const isPayloadAdmin = pathname?.startsWith('/admin');
-
-  if (isPayloadAdmin) return null;
-
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [dotPosition, setDotPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
