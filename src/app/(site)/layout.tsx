@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
-<<<<<<<< HEAD:src/app/layout.tsx
-========
 import '../globals.css';
 import Providers from '../providers';
 import CustomCursor from '@/components/CustomCursor';
 import JsonLd from '@/components/JsonLd';
 import RouteTransitionLoader from '@/components/RouteTransitionLoader';
->>>>>>>> experiments:src/app/(site)/layout.tsx
 
 export const metadata: Metadata = {
     title: {
@@ -72,7 +69,14 @@ export default function SiteLayout({
             <head>
                 <link rel="icon" href="/favicon.ico" sizes="any" />
             </head>
-            <body>{children}</body>
+            <body>
+                <Providers>
+                    <JsonLd />
+                    <CustomCursor />
+                    <RouteTransitionLoader />
+                    {children}
+                </Providers>
+            </body>
         </html>
     );
 }
