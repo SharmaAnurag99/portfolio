@@ -263,6 +263,7 @@ async function seed() {
             collection: 'projects',
             data: {
                 title: p.title,
+                category: p.category,
                 content: p.description, // Schema says 'content', UI array says 'description'
                 image: defaultMedia.id,
                 url: p.url,

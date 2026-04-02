@@ -112,8 +112,8 @@ const Blog = async () => {
         personalPosts = localBlogPosts.filter((post) => personalCategories.has(post.category));
     }
 
-    const visibleTechnicalPosts = technicalPosts.slice(0, 1);
-    const visiblePersonalPosts = personalPosts.slice(0, 1);
+    const visibleTechnicalPosts = technicalPosts;
+    const visiblePersonalPosts = personalPosts;
 
     return (
         <div className="min-h-screen bg-background">
