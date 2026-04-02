@@ -62,13 +62,6 @@ const Header = () => {
               CONTACT
             </Link>
 
-            <Link
-              href="/experiments"
-              className="inline-flex items-center gap-1.5 rounded-full border border-violet-500/40 bg-violet-500/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-violet-900 transition hover:border-violet-500/60 hover:bg-violet-500/15 dark:text-violet-100"
-            >
-              <Sparkles size={14} className="opacity-90" />
-              Fun mode
-            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -105,14 +98,6 @@ const Header = () => {
               </Link>
               <Link href="/#contact" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
                 CONTACT
-              </Link>
-              <Link
-                href="/experiments"
-                className="inline-flex items-center gap-2 rounded-full border border-violet-500/40 bg-violet-500/10 px-4 py-2 text-sm font-semibold uppercase tracking-wider text-violet-900 dark:text-violet-100"
-                onClick={() => setIsOpen(false)}
-              >
-                <Sparkles size={16} />
-                Fun mode
               </Link>
             </div>
           </div>

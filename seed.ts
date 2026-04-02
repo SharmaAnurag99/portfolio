@@ -98,6 +98,120 @@ const experiences = [
 ];
 
 
+const blogs = [
+    {
+        title: 'Why Being "Unsafe" is Rust’s Secret Superpower: 5 Takeaways from the Containment Protocol',
+        slug: 'rust-unsafe-superpower',
+        category: 'Systems Programming',
+        date: 'April 2, 2026',
+        content: {
+            root: {
+                type: 'root',
+                format: '',
+                indent: 0,
+                version: 1,
+                children: [
+                    {
+                        type: 'paragraph',
+                        version: 1,
+                        children: [{ type: 'text', text: 'There is a specific kind of architectural frustration known only to Rust developers: writing a program that you know is memory-safe, only to have the compiler’s borrow checker reject it with cold, mathematical certainty.', version: 1 }]
+                    },
+                    {
+                        type: 'paragraph',
+                        version: 1,
+                        children: [{ type: 'text', text: 'However, we operate on inherently "volatile" hardware. Systems programming requires arbitrary low-level memory access—capabilities that hardware, which lacks any concept of a borrow checker, demands. The answer is the unsafe keyword. It isn\'t a "break glass in case of emergency" button; it is the deliberate bridge between high-level safe analysis and the reality of system hardware.', version: 1 }]
+                    },
+                    {
+                        type: 'heading',
+                        tag: 'h2',
+                        version: 1,
+                        children: [{ type: 'text', text: 'Takeaway 1: The "Unsafe" Keyword is an Override, Not a Shutdown', version: 1 }]
+                    },
+                    {
+                        type: 'paragraph',
+                        version: 1,
+                        children: [{ type: 'text', text: 'A common misconception is that wrapping code in an unsafe block disables the compiler’s brain. In reality, unsafe provides a surgical override for specific operations, not a total abandonment of the safety net.', version: 1 }]
+                    },
+                    {
+                        type: 'quote',
+                        version: 1,
+                        children: [{ type: 'text', text: '"unsafe does NOT disable Rust\'s safety checks. It simply transfers the onus of verifying five specific memory contracts from the compiler directly to the developer."', version: 1 }]
+                    },
+                    {
+                        type: 'heading',
+                        tag: 'h2',
+                        version: 1,
+                        children: [{ type: 'text', text: 'Takeaway 2: The Five "Clearances" of the Containment Zone', version: 1 }]
+                    },
+                    {
+                        type: 'list',
+                        listType: 'bullet',
+                        version: 1,
+                        children: [
+                            { type: 'listitem', children: [{ type: 'text', text: 'Dereference raw pointers', version: 1 }] },
+                            { type: 'listitem', children: [{ type: 'text', text: 'Call unsafe functions or methods', version: 1 }] },
+                            { type: 'listitem', children: [{ type: 'text', text: 'Access or modify mutable static variables', version: 1 }] },
+                            { type: 'listitem', children: [{ type: 'text', text: 'Implement unsafe traits', version: 1 }] },
+                            { type: 'listitem', children: [{ type: 'text', text: 'Access fields of foreign C-style unions', version: 1 }] }
+                        ]
+                    },
+                    {
+                        type: 'heading',
+                        tag: 'h2',
+                        version: 1,
+                        children: [{ type: 'text', text: 'Takeaway 3: The Physics of Raw Pointers', version: 1 }]
+                    },
+                    {
+                        type: 'code',
+                        language: 'rust',
+                        version: 1,
+                        children: [{ type: 'text', text: '// Safe Zone: Creation \nlet r1 = &num as *const i32;', version: 1 }]
+                    },
+                    {
+                        type: 'paragraph',
+                        version: 1,
+                        children: [{ type: 'text', text: 'The danger only triggers during Dereferencing. This is the "Unsafe Zone":', version: 1 }]
+                    },
+                    {
+                        type: 'code',
+                        language: 'rust',
+                        version: 1,
+                        children: [{ type: 'text', text: 'unsafe { println!("{}", *r1); }', version: 1 }]
+                    },
+                    {
+                        type: 'heading',
+                        tag: 'h2',
+                        version: 1,
+                        children: [{ type: 'text', text: 'Takeaway 4: Architecting around the Borrow Checker’s Variable-Level Myopia', version: 1 }]
+                    },
+                    {
+                        type: 'paragraph',
+                        version: 1,
+                        children: [{ type: 'text', text: 'The most elegant use of unsafe is solving "Blind Spots". We solve this using a three-stage Containment Protocol: Input Validation (Safe), The Containment Zone (Unsafe), and Output Packaging (Safe).', version: 1 }]
+                    },
+                    {
+                        type: 'heading',
+                        tag: 'h2',
+                        version: 1,
+                        children: [{ type: 'text', text: 'Takeaway 5: Building "Embassies" for the Outside World', version: 1 }]
+                    },
+                    {
+                        type: 'code',
+                        language: 'rust',
+                        version: 1,
+                        children: [{ type: 'text', text: '#[no_mangle]\npub extern "C" fn call_from_c() {\n    // This name is now predictable for external linkers\n}', version: 1 }]
+                    },
+                    {
+                        type: 'paragraph',
+                        version: 1,
+                        children: [{ type: 'text', text: 'Unsafe code isn’t a way to break the rules. It’s the tool we use to write the rules.', version: 1 }]
+                    }
+                ]
+            }
+        }
+    }
+];
+
 async function seed() {
     console.log('Initializing Payload...')
     const payload = await getPayload({ config: configPromise })
@@ -110,6 +224,7 @@ async function seed() {
     await payload.delete({ collection: 'projects', where: { id: { exists: true } } })
     await payload.delete({ collection: 'skills', where: { id: { exists: true } } })
     await payload.delete({ collection: 'education', where: { id: { exists: true } } })
+    await payload.delete({ collection: 'blogs', where: { id: { exists: true } } })
     await payload.delete({ collection: 'media', where: { id: { exists: true } } })
 
     console.log('Uploading default media placeholders...')
@@ -174,6 +289,21 @@ async function seed() {
             data: {
                 title: e.title,
                 content: e.content,
+                image: defaultMedia.id,
+            }
+        })
+    }
+
+    console.log('Seeding Blogs...')
+    for (const b of blogs) {
+        await payload.create({
+            collection: 'blogs',
+            data: {
+                title: b.title,
+                slug: b.slug,
+                category: b.category,
+                date: b.date,
+                content: b.content,
                 image: defaultMedia.id,
             }
         })
