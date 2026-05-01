@@ -2,7 +2,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { buildConfig } from 'payload'
 import { payloadDebug } from './src/lib/payload-debug'
 import { Blogs } from './src/payload/collections/Blogs'
@@ -17,7 +17,14 @@ import { SiteDetails } from './src/payload/globals/SiteDetails'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const blobToken = process.env.BLOB_READ_WRITE_TOKEN
+const r2AccountId = process.env.R2_ACCOUNT_ID
+const r2AccessKeyId = process.env.R2_ACCESS_KEY_ID
+const r2SecretAccessKey = process.env.R2_SECRET_ACCESS_KEY
+const r2Bucket = process.env.R2_BUCKET
+
+const r2Configured = Boolean(
+  r2AccountId && r2AccessKeyId && r2SecretAccessKey && r2Bucket,
+)
 
 export default buildConfig({
   admin: {
@@ -34,12 +41,23 @@ export default buildConfig({
     url: process.env.DATABASE_URI || '',
   }),
   plugins: [
-    vercelBlobStorage({
-      enabled: Boolean(blobToken),
+    s3Storage({
+      enabled: r2Configured,
       collections: {
         media: true,
       },
-      token: blobToken ?? '',
+      bucket: r2Bucket ?? '',
+      config: {
+        endpoint: r2AccountId
+          ? `https://${r2AccountId}.r2.cloudflarestorage.com`
+          : '',
+        region: 'auto',
+        forcePathStyle: true,
+        credentials: {
+          accessKeyId: r2AccessKeyId ?? '',
+          secretAccessKey: r2SecretAccessKey ?? '',
+        },
+      },
     }),
   ],
   onInit: async (payload) => {
@@ -47,8 +65,8 @@ export default buildConfig({
       nodeEnv: process.env.NODE_ENV,
       hasDatabaseUri: Boolean(process.env.DATABASE_URI),
       hasPayloadSecret: Boolean(process.env.PAYLOAD_SECRET),
-      hasBlobToken: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
-      blobStorageEnabled: Boolean(blobToken),
+      r2Configured,
+      r2Bucket: r2Bucket || null,
       adminRoute: '/admin',
       apiRoute: '/api',
       collectionCount: payload.config.collections?.length || 0,
