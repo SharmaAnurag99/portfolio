@@ -40,6 +40,22 @@ Access:
 - Site: [http://localhost:3000](http://localhost:3000)
 - Payload Admin: [http://localhost:3000/admin](http://localhost:3000/admin)
 
+## Payload Debug Mode
+
+To enable verbose Payload diagnostics in server and browser consoles:
+
+```bash
+PAYLOAD_DEBUG=true
+NEXT_PUBLIC_PAYLOAD_DEBUG=true
+```
+
+With these enabled, the app logs:
+- Payload init state (env presence, collection count)
+- Admin server-function lifecycle
+- Admin page metadata/render lifecycle
+- Payload REST route request/response/error traces
+- Browser runtime `window.onerror` and `unhandledrejection` events
+
 ## Getting Started
 
 First, run the development server:

@@ -4,6 +4,7 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { buildConfig } from 'payload'
+import { payloadDebug } from './src/lib/payload-debug'
 import { Blogs } from './src/payload/collections/Blogs'
 import { Education } from './src/payload/collections/education'
 import { Media } from './src/payload/collections/Media'
@@ -43,6 +44,17 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
+  onInit: async (payload) => {
+    payloadDebug('payload-config', 'Payload initialized', {
+      nodeEnv: process.env.NODE_ENV,
+      hasDatabaseUri: Boolean(process.env.DATABASE_URI),
+      hasPayloadSecret: Boolean(process.env.PAYLOAD_SECRET),
+      hasBlobToken: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      adminRoute: '/admin',
+      apiRoute: '/api',
+      collectionCount: payload.config.collections?.length || 0,
+    })
+  },
   plugins,
 })
 
