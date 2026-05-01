@@ -4,6 +4,7 @@ import Providers from '../providers';
 import CustomCursor from '@/components/CustomCursor';
 import JsonLd from '@/components/JsonLd';
 import RouteTransitionLoader from '@/components/RouteTransitionLoader';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
     title: {
@@ -75,6 +76,7 @@ export default function SiteLayout({
                     <CustomCursor />
                     <RouteTransitionLoader />
                     {children}
+                    <Analytics />
                 </Providers>
             </body>
         </html>
