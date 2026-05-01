@@ -6,12 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "payload:seed": "node --env-file=.env.local --experimental-specifier-resolution=node --import tsx scripts/payload-reset-seed.ts",
+    "payload:admin": "node --env-file=.env.local --experimental-specifier-resolution=node --import tsx scripts/create_admin.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@payloadcms/db-mongodb": "^3.79.0",
     "@payloadcms/next": "^3.79.0",
+    "@payloadcms/plugin-cloud-storage": "^3.79.0",
     "@payloadcms/richtext-lexical": "^3.79.0",
     "@payloadcms/storage-s3": "^3.79.0",
     "@payloadcms/storage-vercel-blob": "^3.79.0",
@@ -84,6 +87,7 @@
     "eslint-config-next": "15.1.0",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
