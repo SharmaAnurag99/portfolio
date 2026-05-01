@@ -1,16 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { List, X, CaretDown } from '@phosphor-icons/react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
-  const pathname = usePathname();
-
-  const isHome = pathname === '/';
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
@@ -24,6 +21,10 @@ const Header = () => {
           <div className="hidden md:flex items-center gap-10">
             <Link href="/" className="text-sm font-medium tracking-wide hover:opacity-60 transition-opacity">
               HOME
+            </Link>
+
+            <Link href="/#work" className="text-sm font-medium tracking-wide hover:opacity-60 transition-opacity">
+              WORK
             </Link>
 
             <Link href="/journey" className="text-sm font-medium tracking-wide hover:opacity-60 transition-opacity">
@@ -58,7 +59,9 @@ const Header = () => {
               BLOG
             </Link>
 
-            <Link href="/#contact" className="text-sm font-medium tracking-wide hover:opacity-60 transition-opacity">
+            <ThemeToggle />
+
+            <Link href="/contact" className="text-sm font-medium tracking-wide hover:opacity-60 transition-opacity">
               CONTACT
             </Link>
 
@@ -81,6 +84,9 @@ const Header = () => {
               <Link href="/" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
                 HOME
               </Link>
+              <Link href="/#work" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
+                WORK
+              </Link>
               <Link href="/journey" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
                 JOURNEY
               </Link>
@@ -96,7 +102,13 @@ const Header = () => {
               <Link href="/blog" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
                 BLOG
               </Link>
-              <Link href="/#contact" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
+
+              <div className="flex items-center justify-between py-3 border-t border-border/60 mt-2 pt-4">
+                <span className="text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">Theme</span>
+                <ThemeToggle />
+              </div>
+
+              <Link href="/contact" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
                 CONTACT
               </Link>
             </div>

@@ -18,24 +18,70 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import PageProgress from '@/components/PageProgress';
 
+/**
+ * Homepage narrative — high conversion, low visual fatigue:
+ * Hook → motion/trust → logos → SHOW WORK (spotlight) → proof numbers →
+ * social voices → capabilities → belief → timeline → offerings →
+ * warm CTA → grounded footer.
+ *
+ * Section rhythm: mostly default + subtle `section-alt` stripes; one
+ * `section-spotlight` for the reel; `section-cta` before footer only.
+ * Full tokens adapt in `html.dark` (see globals.css).
+ */
 const Home = () => {
     return (
         <ClientAnimationWrapper>
             <div className="min-h-[100dvh] bg-background">
                 <PageProgress />
                 <Header />
-                <HeroAsymmetric />
-                <NowStrip />
-                <LogoMarquee />
-                <Manifesto />
-                <StatsCounter />
-                <SkillsOS />
-                <Experience />
-                <Services />
-                <ProjectsReel />
-                <Testimonials />
-                <Contact />
-                <Footer />
+
+                <div className="section-default">
+                    <HeroAsymmetric />
+                </div>
+
+                <div className="section-alt">
+                    <NowStrip />
+                </div>
+
+                <div className="section-default">
+                    <LogoMarquee />
+                </div>
+
+                <div id="work" className="section-spotlight">
+                    <ProjectsReel />
+                </div>
+
+                <div className="section-alt">
+                    <StatsCounter />
+                </div>
+
+                <div className="section-default">
+                    <Testimonials />
+                </div>
+
+                <div className="section-alt">
+                    <SkillsOS />
+                </div>
+
+                <div className="section-default">
+                    <Manifesto />
+                </div>
+
+                <div className="section-alt">
+                    <Experience />
+                </div>
+
+                <div className="section-default">
+                    <Services />
+                </div>
+
+                <div id="contact" className="section-cta">
+                    <Contact />
+                </div>
+
+                <div className="section-spotlight">
+                    <Footer />
+                </div>
             </div>
         </ClientAnimationWrapper>
     );
