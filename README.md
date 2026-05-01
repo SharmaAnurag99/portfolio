@@ -15,6 +15,31 @@ NEXT_PUBLIC_USE_CMS_CONTENT=true
 
 and ensure your Payload/Mongo environment variables are configured.
 
+## Payload Setup (Fresh)
+
+Create `.env.local` with:
+
+```bash
+PAYLOAD_SECRET=replace-with-a-long-random-secret
+DATABASE_URI=mongodb://127.0.0.1:27017/portfolio
+NEXT_PUBLIC_USE_CMS_CONTENT=true
+PAYLOAD_ADMIN_EMAIL=admin@example.com
+PAYLOAD_ADMIN_PASSWORD=ChangeMe123!
+```
+
+Then run:
+
+```bash
+npm run payload:seed
+npm run payload:admin
+npm run dev
+```
+
+Access:
+
+- Site: [http://localhost:3000](http://localhost:3000)
+- Payload Admin: [http://localhost:3000/admin](http://localhost:3000/admin)
+
 ## Getting Started
 
 First, run the development server:
