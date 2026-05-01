@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "payload:importmap": "node --experimental-specifier-resolution=node --import tsx ./node_modules/payload/dist/bin/index.js generate:importmap",
+    "payload:importmap": "node --experimental-specifier-resolution=node --import tsx ./node_modules/payload/dist/bin/index.js generate:importmap && node scripts/patch-payload-importmap.mjs",
     "build": "npm run payload:importmap && next build",
     "start": "next start",
     "lint": "eslint",

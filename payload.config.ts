@@ -26,6 +26,10 @@ const r2Configured = Boolean(
   r2AccountId && r2AccessKeyId && r2SecretAccessKey && r2Bucket,
 )
 
+// Keep S3 client components in importMap even if envs are missing at build time.
+// This prevents Payload admin from crashing with "PayloadComponent not found in importMap".
+const enableS3Plugin = true
+
 export default buildConfig({
   admin: {
     user: Users.slug,
@@ -42,7 +46,8 @@ export default buildConfig({
   }),
   plugins: [
     s3Storage({
-      enabled: r2Configured,
+      enabled: enableS3Plugin,
+      clientUploads: true,
       collections: {
         media: true,
       },
