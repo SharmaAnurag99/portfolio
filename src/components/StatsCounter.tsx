@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react'
 
-const stats: { value: number; suffix?: string; label: string }[] = [
-  { value: 5, suffix: '+', label: 'Projects shipped' },
-  { value: 4, label: 'Happy clients' },
-  { value: 31, suffix: '+', label: 'Skills mastered' },
-  { value: 2, suffix: ' yrs', label: 'Building products' },
+const stats: { value: number; prefix?: string; suffix?: string; label: string }[] = [
+  { value: 5, suffix: '+', label: 'Production projects shipped' },
+  { value: 4, label: 'Clients served · 0 churn' },
+  { value: 6, suffix: 'h', label: 'Median client reply time' },
+  { value: 100, suffix: '%', label: 'Projects shipped on scope' },
 ]
 
 function useInView<T extends HTMLElement>(ref: React.RefObject<T | null>) {
@@ -25,7 +25,7 @@ function useInView<T extends HTMLElement>(ref: React.RefObject<T | null>) {
   return inView
 }
 
-function Counter({ to, suffix }: { to: number; suffix?: string }) {
+function Counter({ to, suffix, prefix }: { to: number; suffix?: string; prefix?: string }) {
   const ref = useRef<HTMLSpanElement>(null)
   const inView = useInView(ref)
   const [n, setN] = useState(0)
@@ -47,6 +47,7 @@ function Counter({ to, suffix }: { to: number; suffix?: string }) {
 
   return (
     <span ref={ref}>
+      {prefix ?? ''}
       {n}
       {suffix ?? ''}
     </span>
@@ -67,7 +68,7 @@ export default function StatsCounter() {
           {stats.map((s, i) => (
             <div key={i} className="flex flex-col gap-3">
               <span className="font-display text-5xl md:text-7xl lg:text-8xl leading-none tracking-tight">
-                <Counter to={s.value} suffix={s.suffix} />
+                <Counter to={s.value} suffix={s.suffix} prefix={s.prefix} />
               </span>
               <span className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground uppercase">
                 {s.label}

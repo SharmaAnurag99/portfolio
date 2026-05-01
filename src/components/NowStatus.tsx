@@ -3,10 +3,11 @@
 import { useEffect, useState } from 'react'
 
 const states: { label: string; value: string }[] = [
-  { label: 'Currently building', value: 'Bento dashboard for a fintech startup' },
-  { label: 'Listening to', value: 'Lo-fi house · Tycho' },
+  { label: 'Available', value: 'New projects · Q2 slots open' },
+  { label: 'Building', value: 'AstroRekhaaji v2 · production launch' },
+  { label: 'Reply time', value: 'Under 6 hours · IST working hours' },
+  { label: 'Latest ship', value: 'Cloudflare R2 migration · 2 days ago' },
   { label: 'Reading', value: 'A Philosophy of Software Design' },
-  { label: 'Open to', value: 'Freelance · Full-time roles' },
 ]
 
 export default function NowStatus() {

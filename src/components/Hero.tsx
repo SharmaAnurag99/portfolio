@@ -5,6 +5,25 @@ const Hero = () => {
     <section id="home" className="min-h-screen flex flex-col justify-center pt-32 pb-20 relative overflow-hidden bg-background">
       <div className="container mx-auto px-6 z-10">
 
+        {/* Trust signal strip */}
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 mb-12 md:mb-16">
+          <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
+            <span className="relative flex w-1.5 h-1.5">
+              <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75" />
+              <span className="relative w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            </span>
+            Available — Q2 slots open
+          </span>
+          <span className="hidden sm:inline-block w-px h-3 bg-border" />
+          <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
+            Based in India · Working globally
+          </span>
+          <span className="hidden md:inline-block w-px h-3 bg-border" />
+          <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
+            Reply &lt; 6h · IST hours
+          </span>
+        </div>
+
         {/* Main Name Heading */}
         <div className="flex flex-col items-center justify-center mb-16 md:mb-24">
           <h1 className="hero-title font-display text-[20vw] md:text-[15vw] leading-[0.8] text-center tracking-tight flex flex-col md:block">
