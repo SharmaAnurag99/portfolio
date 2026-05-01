@@ -1,4 +1,7 @@
 import type { CollectionConfig } from 'payload'
+import { revalidateAfterChange, revalidateAfterDelete } from '@/lib/revalidate-frontend'
+
+const FRONTEND_PATHS = ['/', '/projects/web2', '/projects/web3']
 
 export const Projects: CollectionConfig = {
     slug: "projects",
@@ -7,6 +10,10 @@ export const Projects: CollectionConfig = {
     },
     access: {
         read: () => true
+    },
+    hooks: {
+        afterChange: [revalidateAfterChange(FRONTEND_PATHS)],
+        afterDelete: [revalidateAfterDelete(FRONTEND_PATHS)],
     },
     fields: [
         {

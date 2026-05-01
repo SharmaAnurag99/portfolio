@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { revalidateAfterChange, revalidateAfterDelete } from '@/lib/revalidate-frontend'
 
 export const Blogs: CollectionConfig = {
     slug: "blogs",
@@ -7,6 +8,10 @@ export const Blogs: CollectionConfig = {
     },
     access: {
         read: () => true
+    },
+    hooks: {
+        afterChange: [revalidateAfterChange(['/', '/blog'])],
+        afterDelete: [revalidateAfterDelete(['/', '/blog'])],
     },
     fields: [
         {

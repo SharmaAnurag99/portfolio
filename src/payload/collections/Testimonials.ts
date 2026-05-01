@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { revalidateAfterChange, revalidateAfterDelete } from '@/lib/revalidate-frontend'
 
 export const Testimonials: CollectionConfig = {
     slug: "testimonials",
@@ -7,6 +8,10 @@ export const Testimonials: CollectionConfig = {
     },
     access: {
         read: () => true
+    },
+    hooks: {
+        afterChange: [revalidateAfterChange(['/'])],
+        afterDelete: [revalidateAfterDelete(['/'])],
     },
     fields: [
         {

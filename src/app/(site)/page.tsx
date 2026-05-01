@@ -1,3 +1,7 @@
+// 60-second ISR safety net — Payload `afterChange` hooks call revalidatePath('/')
+// for instant freshness; this is the fallback if a hook fails to fire.
+export const revalidate = 60;
+
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import LogoMarquee from '@/components/LogoMarquee';
