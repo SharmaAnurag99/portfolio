@@ -2,7 +2,6 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { buildConfig } from 'payload'
 import { payloadDebug } from './src/lib/payload-debug'
 import { Blogs } from './src/payload/collections/Blogs'
@@ -16,19 +15,6 @@ import { SiteDetails } from './src/payload/globals/SiteDetails'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
-
-const plugins = []
-
-if (process.env.BLOB_READ_WRITE_TOKEN) {
-  plugins.push(
-    vercelBlobStorage({
-      collections: {
-        media: true,
-      },
-      token: process.env.BLOB_READ_WRITE_TOKEN,
-    }),
-  )
-}
 
 export default buildConfig({
   admin: {
@@ -55,7 +41,6 @@ export default buildConfig({
       collectionCount: payload.config.collections?.length || 0,
     })
   },
-  plugins,
 })
 
 
