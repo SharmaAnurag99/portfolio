@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import '../globals.css';
 import Providers from '../providers';
-import CustomCursor from '@/components/CustomCursor';
 import JsonLd from '@/components/JsonLd';
 import RouteTransitionLoader from '@/components/RouteTransitionLoader';
+import SmoothScrollProvider from '@/components/SmoothScrollProvider';
+import NoiseOverlay from '@/components/NoiseOverlay';
 import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
@@ -73,9 +74,11 @@ export default function SiteLayout({
             <body>
                 <Providers>
                     <JsonLd />
-                    <CustomCursor />
-                    <RouteTransitionLoader />
-                    {children}
+                    <SmoothScrollProvider>
+                        <RouteTransitionLoader />
+                        {children}
+                    </SmoothScrollProvider>
+                    <NoiseOverlay />
                     <Analytics />
                 </Providers>
             </body>

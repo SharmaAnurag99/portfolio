@@ -1,8 +1,10 @@
 import Header from '@/components/Header';
-import Hero from '@/components/Hero';
+import HeroAsymmetric from '@/components/HeroAsymmetric';
+import NowStrip from '@/components/NowStrip';
 import LogoMarquee from '@/components/LogoMarquee';
 import ClientAnimationWrapper from '@/components/ClientAnimationWrapper';
-import About from '@/components/About';
+import Manifesto from '@/components/Manifesto';
+import StatsCounter from '@/components/StatsCounter';
 import Services from '@/components/Services';
 import Portfolio from '@/components/Portfolio';
 import Testimonials from '@/components/Testimonials';
@@ -15,12 +17,14 @@ import Skills from '@/components/Skills';
 const Home = () => {
     return (
         <ClientAnimationWrapper>
-            <div className="min-h-screen bg-background cursor-none md:cursor-none">
+            <div className="min-h-[100dvh] bg-background">
                 <PageProgress />
                 <Header />
-                <Hero />
+                <HeroAsymmetric />
+                <NowStrip />
                 <LogoMarquee />
-                <About />
+                <Manifesto />
+                <StatsCounter />
                 <Skills />
                 <Experience />
                 <Services />

@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+/* === FONTS — Premium editorial stack ============================
+ * Body: Satoshi (Fontshare) — distinctive sans, replaces Inter
+ * Display: Cabinet Grotesk (Fontshare) — editorial display
+ * Mono: Geist Mono — labels, numbers, code-feel
+ * ================================================================ */
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&f[]=cabinet-grotesk@300,400,500,700,800,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,39 +12,41 @@
 
 @layer base {
   :root {
+    /* Warm cream — signature */
     --background: 40 33% 95%;
-    --foreground: 0 0% 0%;
+    /* Soft charcoal (NOT pure black — too harsh on cream) */
+    --foreground: 0 0% 6%;
 
     --card: 40 33% 95%;
-    --card-foreground: 0 0% 0%;
+    --card-foreground: 0 0% 6%;
 
     --popover: 40 33% 95%;
-    --popover-foreground: 0 0% 0%;
+    --popover-foreground: 0 0% 6%;
 
-    --primary: 0 0% 0%;
+    --primary: 0 0% 6%;
     --primary-foreground: 40 33% 95%;
 
-    --secondary: 0 0% 0%;
+    --secondary: 0 0% 6%;
     --secondary-foreground: 40 33% 95%;
 
     --muted: 40 20% 90%;
-    --muted-foreground: 0 0% 40%;
+    --muted-foreground: 0 0% 38%;
 
-    --accent: 40 33% 95%;
-    --accent-foreground: 0 0% 0%;
+    /* Single warm terracotta accent — desaturated, no AI-purple */
+    --accent: 12 60% 52%;
+    --accent-foreground: 40 33% 95%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 70% 48%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 0 0% 85%;
     --input: 0 0% 85%;
-    --ring: 0 0% 0%;
+    --ring: 0 0% 6%;
 
     --radius: 0.5rem;
 
-    /* Custom tokens */
     --cream: 40 33% 95%;
-    --dark: 0 0% 0%;
+    --dark: 0 0% 6%;
     --dark-surface: 0 0% 8%;
 
     --sidebar-background: 0 0% 98%;
@@ -52,17 +60,17 @@
   }
 
   .dark {
-    --background: 0 0% 0%;
+    --background: 0 0% 6%;
     --foreground: 40 33% 95%;
 
-    --card: 0 0% 8%;
+    --card: 0 0% 9%;
     --card-foreground: 40 33% 95%;
 
-    --popover: 0 0% 8%;
+    --popover: 0 0% 9%;
     --popover-foreground: 40 33% 95%;
 
     --primary: 40 33% 95%;
-    --primary-foreground: 0 0% 0%;
+    --primary-foreground: 0 0% 6%;
 
     --secondary: 0 0% 15%;
     --secondary-foreground: 40 33% 95%;
@@ -70,7 +78,7 @@
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 0 0% 15%;
+    --accent: 12 65% 58%;
     --accent-foreground: 40 33% 95%;
 
     --destructive: 0 62.8% 30.6%;
@@ -79,7 +87,7 @@
     --border: 0 0% 20%;
     --input: 0 0% 20%;
     --ring: 40 33% 95%;
-    
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -102,13 +110,20 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-feature-settings: 'ss01' on, 'cv11' on;
   }
 }
 
 @layer components {
   .font-display {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Cabinet Grotesk', 'Satoshi', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .font-mono {
+    font-family: 'Geist Mono', ui-monospace, monospace;
   }
 
   .section-dark {
@@ -153,9 +168,34 @@
   }
 }
 
-/* Hide default cursor on desktop */
-@media (min-width: 768px) {
-  * {
-    cursor: none !important;
+/* Lenis smooth scroll required class */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Cursor — native default; CustomCursor removed for clarity & accessibility */
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
