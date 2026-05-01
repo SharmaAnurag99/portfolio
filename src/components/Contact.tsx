@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import toast, { Toaster } from 'react-hot-toast'
 import {
   ArrowRight,
@@ -181,6 +182,17 @@ const Contact = () => {
               <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
                 Median reply 6h · IST hours
               </span>
+              <Link
+                href="/contact"
+                className="group ml-auto font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"
+              >
+                Or use the full form
+                <ArrowRight
+                  size={12}
+                  weight="regular"
+                  className="transition-transform group-hover:translate-x-1"
+                />
+              </Link>
             </div>
           </form>
 

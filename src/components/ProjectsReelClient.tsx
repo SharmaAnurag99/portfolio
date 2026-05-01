@@ -157,7 +157,7 @@ export default function ProjectsReelClient({ projects }: Props) {
                 More to come<span className="text-foreground/30">.</span>
               </span>
               <Link
-                href="/#contact"
+                href="/contact"
                 className="group mt-4 inline-flex items-center gap-3 font-mono text-[11px] tracking-[0.3em] uppercase text-foreground hover:text-[hsl(var(--accent))] transition-colors"
               >
                 Start a project
