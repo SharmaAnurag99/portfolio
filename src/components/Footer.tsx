@@ -1,9 +1,15 @@
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import NowStatus from './NowStatus';
 
 const Footer = () => {
   return (
     <footer className="py-20 section-dark border-t border-primary-foreground/10 overflow-hidden relative">
       <div className="container mx-auto px-6 relative z-10">
+        {/* Live status row */}
+        <div className="mb-12 flex justify-center md:justify-start">
+          <NowStatus />
+        </div>
+
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-20">
           {/* Social Links */}
           <div className="flex items-center gap-6">
