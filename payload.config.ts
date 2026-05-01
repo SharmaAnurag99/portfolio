@@ -47,7 +47,6 @@ export default buildConfig({
   plugins: [
     s3Storage({
       enabled: enableS3Plugin,
-      clientUploads: true,
       collections: {
         media: true,
       },
