@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { ChevronUp } from 'lucide-react';
+import { CaretUp } from '@phosphor-icons/react';
 
 const PageProgress = () => {
   const [progress, setProgress] = useState(0);
@@ -54,7 +54,7 @@ const PageProgress = () => {
           className="transition-all duration-150"
         />
       </svg>
-      <ChevronUp size={20} className="text-foreground" />
+      <CaretUp size={20} weight="regular" className="text-foreground" />
     </button>
   );
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Sparkles } from 'lucide-react';
+import { List, X, CaretDown } from '@phosphor-icons/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -38,7 +38,7 @@ const Header = () => {
             >
               <button className="text-sm font-medium tracking-wide hover:opacity-60 transition-opacity flex items-center gap-1">
                 PROJECTS
-                <ChevronDown size={14} className={`transition-transform duration-200 ${isProjectsOpen ? 'rotate-180' : ''}`} />
+                <CaretDown size={14} weight="regular" className={`transition-transform duration-200 ${isProjectsOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {/* Dropdown Menu */}
@@ -70,7 +70,7 @@ const Header = () => {
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={24} weight="regular" /> : <List size={24} weight="regular" />}
           </button>
         </div>
 

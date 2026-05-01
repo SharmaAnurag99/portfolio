@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { revalidateAfterChange, revalidateAfterDelete } from '@/lib/revalidate-frontend'
 
 export const Testimonials: CollectionConfig = {
     slug: "testimonials",
@@ -7,6 +8,10 @@ export const Testimonials: CollectionConfig = {
     },
     access: {
         read: () => true
+    },
+    hooks: {
+        afterChange: [revalidateAfterChange(['/'])],
+        afterDelete: [revalidateAfterDelete(['/'])],
     },
     fields: [
         {
@@ -28,6 +33,14 @@ export const Testimonials: CollectionConfig = {
             type: "upload",
             relationTo: "media",
             required: true
-        }
+        },
+        {
+            name: "linkedinUrl",
+            type: "text",
+            label: "LinkedIn URL",
+            admin: {
+                description: "Optional. If set, testimonial card shows a 'Verified on LinkedIn' badge that links to this URL.",
+            },
+        },
     ]
 }

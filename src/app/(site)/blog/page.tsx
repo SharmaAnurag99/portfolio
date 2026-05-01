@@ -1,204 +1,159 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import Link from 'next/link';
-import { getPayload } from 'payload';
-// Path depends on nesting level, for `app/blog/page.tsx` it's `../../payload.config`
-import configPromise from '../../../../payload.config';
-import { resolveMediaUrl } from '@/lib/media';
-import { useCmsContent } from '@/lib/use-cms-content';
-import { localBlogPosts, personalCategories } from '@/data/local/blog-posts';
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import Link from 'next/link'
+import { ArrowRight } from '@phosphor-icons/react/dist/ssr'
 
-/*
-const staticTechnicalPosts = [
-    {
-        slug: 'optimizing-nextjs-performance',
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
-        category: 'Technical',
-        date: 'Aug 28',
-        title: 'Optimizing Next.js for Maximum Performance',
-    },
-    {
-        slug: 'starting-web-design-career',
-        image: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&h=600&fit=crop',
-        category: 'Branding',
-        date: 'Aug 28',
-        title: 'Starting and Growing a Career in Web Design',
-    },
-    {
-        slug: 'security-audits-necessity',
-        image: 'https://images.unsplash.com/photo-1563206767-5b18f218e8de?w=800&h=600&fit=crop',
-        category: 'Security',
-        date: 'Oct 15',
-        title: 'Security Audits: Why Every Application Needs One',
-    },
-    {
-        slug: 'building-smart-ai-apps',
-        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop',
-        category: 'AI',
-        date: 'Oct 20',
-        title: 'How to Build Smart Applications With AI Integration',
-    },
-    {
-        slug: 'top-design-tips-ux',
-        image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop',
-        category: 'Design',
-        date: 'Nov 02',
-        title: 'Top Design Tips for Creating Engaging User Experiences',
-    },
-];
+import { getPayload } from 'payload'
+import configPromise from '../../../../payload.config'
+import { useCmsContent } from '@/lib/use-cms-content'
+import { localBlogPosts } from '@/data/local/blog-posts'
 
-const staticPersonalPosts = [
-    {
-        slug: 'my-journey-into-tech',
-        image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=800&h=600&fit=crop',
-        category: 'Personal',
-        date: 'Aug 28',
-        title: 'My Journey into Tech',
-    },
-    {
-        slug: 'my-first-pay-milestone',
-        image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&h=600&fit=crop',
-        category: 'Career',
-        date: 'Feb 10',
-        title: 'My First Pay: The Milestone That Changed Everything',
-    },
-    {
-        slug: 'my-journey-as-teacher',
-        image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop',
-        category: 'Teaching',
-        date: 'Mar 05',
-        title: 'My Journey as a Teacher and Mentor in Tech',
-    }
-];
-*/
+export const revalidate = 60
 
+type Row = {
+  slug: string
+  title: string
+  category: string
+  date: string
+  readMins: number
+}
+
+const stripTags = (input: string): string => input.replace(/<[^>]*>/g, ' ')
+
+const richTextToString = (rt: any): string => {
+  if (!rt) return ''
+  if (typeof rt === 'string') return rt
+  if (Array.isArray(rt)) return rt.map(richTextToString).join(' ')
+  if (typeof rt === 'object') {
+    const out: string[] = []
+    if (typeof rt.text === 'string') out.push(rt.text)
+    if (rt.children) out.push(richTextToString(rt.children))
+    if (rt.root) out.push(richTextToString(rt.root))
+    return out.join(' ')
+  }
+  return ''
+}
+
+const computeReadMins = (raw: string): number => {
+  const text = stripTags(raw).trim()
+  const words = text ? text.split(/\s+/).length : 0
+  return Math.max(1, Math.round(words / 200))
+}
 
 const Blog = async () => {
-    const cmsEnabled = useCmsContent();
-    let technicalPosts: any[] = [];
-    let personalPosts: any[] = [];
+  const cmsEnabled = useCmsContent()
 
-    if (cmsEnabled) {
-        const payload = await getPayload({ config: configPromise });
-        const techData = await payload.find({
-            collection: 'blogs',
-            where: {
-                and: [
-                    { category: { not_equals: 'Personal' } },
-                    { category: { not_equals: 'Career' } },
-                    { category: { not_equals: 'Teaching' } }
-                ]
-            },
-            depth: 1,
-            limit: 100
-        });
-        technicalPosts = techData.docs;
+  let posts: Row[] = []
 
-        const personalData = await payload.find({
-            collection: 'blogs',
-            where: {
-                or: [
-                    { category: { equals: 'Personal' } },
-                    { category: { equals: 'Career' } },
-                    { category: { equals: 'Teaching' } }
-                ]
-            },
-            depth: 1,
-            limit: 100
-        });
-        personalPosts = personalData.docs;
-    } else {
-        technicalPosts = localBlogPosts.filter((post) => !personalCategories.has(post.category));
-        personalPosts = localBlogPosts.filter((post) => personalCategories.has(post.category));
-    }
+  if (cmsEnabled) {
+    const payload = await getPayload({ config: configPromise })
+    const { docs } = await payload.find({
+      collection: 'blogs',
+      depth: 0,
+      limit: 200,
+      sort: '-createdAt',
+    })
+    posts = docs.map((p: any) => {
+      const text = richTextToString(p.content)
+      return {
+        slug: p.slug || '',
+        title: p.title || 'Untitled',
+        category: p.category || 'Note',
+        date: p.date || '',
+        readMins: computeReadMins(text),
+      }
+    })
+  } else {
+    posts = localBlogPosts.map((p) => ({
+      slug: p.slug,
+      title: p.title,
+      category: p.category,
+      date: p.date,
+      readMins: computeReadMins(p.content),
+    }))
+  }
 
-    const visibleTechnicalPosts = technicalPosts;
-    const visiblePersonalPosts = personalPosts;
+  const count = posts.length
 
-    return (
-        <div className="min-h-screen bg-background">
-            <Header />
-            <main className="pt-32 pb-24">
-                <div className="container mx-auto px-6">
-                    <div className="mb-16">
-                        <h1 className="font-display text-5xl md:text-7xl mb-6">Thoughts</h1>
-                        <p className="text-muted-foreground text-xl max-w-2xl">
-                            Notes on engineering, design, and the technologies I'm exploring.
-                        </p>
-                    </div>
+  return (
+    <div className="min-h-[100dvh] bg-background">
+      <Header />
 
-                    {/* Technical Section */}
-                    <div className="mb-20">
-                        <h3 className="font-display text-3xl md:text-4xl mb-8">Technical</h3>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {visibleTechnicalPosts.map((post: any, index: number) => {
-                                const imageUrl = cmsEnabled ? resolveMediaUrl(post.image) : post.image
-                                return (
-                                    <article key={index} className="blog-card group cursor-pointer">
-                                        <div className="relative overflow-hidden rounded-2xl mb-6">
-                                            <img
-                                                src={imageUrl}
-                                                alt={post.title}
-                                                className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
-                                            />
-                                        </div>
-                                        <div className="flex items-center gap-4 mb-3">
-                                            <span className="text-xs font-medium px-3 py-1 bg-muted rounded-full">
-                                                {post.category}
-                                            </span>
-                                            <span className="text-sm text-muted-foreground">Posted on {post.date}</span>
-                                        </div>
-                                        <h3 className="font-display text-2xl mb-4 group-hover:translate-x-2 transition-transform duration-300">
-                                            {post.title}
-                                        </h3>
-                                        <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-sm font-medium group/link hover:text-primary transition-colors">
-                                            Read more
-                                            <span className="group-hover/link:translate-x-1 transition-transform">→</span>
-                                        </Link>
-                                    </article>
-                                )
-                            })}
-                        </div>
-                    </div>
+      <main className="pt-32 md:pt-40 pb-32">
+        <div className="container mx-auto px-6">
+          {/* Header — editorial NYT feel */}
+          <div className="flex items-center justify-between mb-10 md:mb-14">
+            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
+              — Reading list / 02
+            </span>
+            <span className="hidden md:inline-block w-20 h-px bg-border" />
+          </div>
 
-                    {/* Personal Section */}
-                    <div>
-                        <h3 className="font-display text-3xl md:text-4xl mb-8">Personal</h3>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {visiblePersonalPosts.map((post: any, index: number) => {
-                                const imageUrl = cmsEnabled ? resolveMediaUrl(post.image) : post.image
-                                return (
-                                    <article key={index} className="blog-card group cursor-pointer">
-                                        <div className="relative overflow-hidden rounded-2xl mb-6">
-                                            <img
-                                                src={imageUrl}
-                                                alt={post.title}
-                                                className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-110"
-                                            />
-                                        </div>
-                                        <div className="flex items-center gap-4 mb-3">
-                                            <span className="text-xs font-medium px-3 py-1 bg-muted rounded-full">
-                                                {post.category}
-                                            </span>
-                                            <span className="text-sm text-muted-foreground">Posted on {post.date}</span>
-                                        </div>
-                                        <h3 className="font-display text-2xl mb-4 group-hover:translate-x-2 transition-transform duration-300">
-                                            {post.title}
-                                        </h3>
-                                        <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-sm font-medium group/link hover:text-primary transition-colors">
-                                            Read more
-                                            <span className="group-hover/link:translate-x-1 transition-transform">→</span>
-                                        </Link>
-                                    </article>
-                                )
-                            })}
-                        </div>
-                    </div>
-                </div>
-            </main>
-            <Footer />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-12 items-end mb-16 md:mb-24">
+            <h1 className="lg:col-span-8 font-display text-[clamp(3.5rem,11vw,10rem)] leading-[0.88] tracking-tight">
+              WRITING<span className="text-foreground/30">.</span>
+            </h1>
+            <p className="lg:col-span-4 font-mono text-[11px] tracking-[0.25em] uppercase text-muted-foreground">
+              {count > 0
+                ? `${String(count).padStart(2, '0')} posts since 2024`
+                : 'No posts yet — first one shipping soon'}
+            </p>
+          </div>
+
+          {count === 0 ? (
+            <div className="border-t border-border pt-16">
+              <p className="font-mono text-sm tracking-wide text-muted-foreground max-w-[55ch]">
+                Pieces in progress include performance studies, post-mortems from production launches,
+                and short notes on how I ship. Check back soon.
+              </p>
+            </div>
+          ) : (
+            <ul className="border-t border-border">
+              {posts.map((p, i) => (
+                <li
+                  key={p.slug + i}
+                  className="border-b border-border"
+                >
+                  <Link
+                    href={`/blog/${p.slug}`}
+                    className="group relative grid grid-cols-12 gap-4 md:gap-8 items-baseline py-6 md:py-8 transition-transform duration-500 hover:translate-x-3"
+                  >
+                    {/* Accent left bar on hover */}
+                    <span
+                      aria-hidden
+                      className="absolute -left-3 top-1/2 -translate-y-1/2 h-0 w-[2px] bg-[hsl(var(--accent))] transition-all duration-500 group-hover:h-full"
+                    />
+
+                    <span className="col-span-3 md:col-span-2 font-mono text-[10px] md:text-xs tracking-[0.25em] uppercase text-muted-foreground">
+                      {p.date || '—'}
+                    </span>
+                    <span className="col-span-3 md:col-span-2 font-mono text-[10px] md:text-xs tracking-[0.25em] uppercase text-foreground/70">
+                      {p.category}
+                    </span>
+                    <span className="col-span-12 md:col-span-6 order-3 md:order-none text-base md:text-xl text-foreground font-medium leading-tight group-hover:underline underline-offset-[6px] decoration-[1px] decoration-foreground/40">
+                      {p.title}
+                    </span>
+                    <span className="col-span-4 md:col-span-1 font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase text-muted-foreground/80">
+                      {p.readMins} min
+                    </span>
+                    <span className="col-span-2 md:col-span-1 flex justify-end text-muted-foreground group-hover:text-foreground transition-colors">
+                      <ArrowRight
+                        size={16}
+                        weight="regular"
+                        className="transition-transform duration-500 group-hover:translate-x-1"
+                      />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
-    );
-};
+      </main>
 
-export default Blog;
+      <Footer />
+    </div>
+  )
+}
+
+export default Blog
