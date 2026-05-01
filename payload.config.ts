@@ -2,6 +2,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { buildConfig } from 'payload'
 import { payloadDebug } from './src/lib/payload-debug'
 import { Blogs } from './src/payload/collections/Blogs'
@@ -15,6 +16,8 @@ import { SiteDetails } from './src/payload/globals/SiteDetails'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const blobToken = process.env.BLOB_READ_WRITE_TOKEN
 
 export default buildConfig({
   admin: {
@@ -30,12 +33,22 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
+  plugins: [
+    vercelBlobStorage({
+      enabled: Boolean(blobToken),
+      collections: {
+        media: true,
+      },
+      token: blobToken ?? '',
+    }),
+  ],
   onInit: async (payload) => {
     payloadDebug('payload-config', 'Payload initialized', {
       nodeEnv: process.env.NODE_ENV,
       hasDatabaseUri: Boolean(process.env.DATABASE_URI),
       hasPayloadSecret: Boolean(process.env.PAYLOAD_SECRET),
       hasBlobToken: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+      blobStorageEnabled: Boolean(blobToken),
       adminRoute: '/admin',
       apiRoute: '/api',
       collectionCount: payload.config.collections?.length || 0,
