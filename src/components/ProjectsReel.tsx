@@ -1,6 +1,6 @@
 import { getPayload } from 'payload'
 import configPromise from '../../payload.config'
-import { resolveMediaUrl } from '@/lib/media'
+import { resolveMediaUrlIndexed } from '@/lib/media'
 import { useCmsContent } from '@/lib/use-cms-content'
 import { localPortfolioProjects } from '@/data/local/portfolio'
 import { slugify } from '@/lib/slugify'
@@ -20,8 +20,8 @@ const ProjectsReel = async () => {
       ).docs
     : localPortfolioProjects
 
-  const projects: ReelProject[] = rawDocs.map((p: any) => {
-    const imageUrl = cmsEnabled ? resolveMediaUrl(p.image) : p.image
+  const projects: ReelProject[] = rawDocs.map((p: any, i: number) => {
+    const imageUrl = cmsEnabled ? resolveMediaUrlIndexed(p.image, i) : p.image
     const title: string = p.title || 'Untitled'
     const slug: string = (p.slug && String(p.slug).trim()) || slugify(title)
     const outcome: string =

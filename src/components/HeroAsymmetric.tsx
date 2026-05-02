@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, ArrowDown } from '@phosphor-icons/react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import MagneticButton from './MagneticButton'
+import { HOME_CONTACT } from '@/lib/site-links'
 
 /* ---- copy: kinetic marquee strip at hero foot --------------------- */
 const ROLE_TOKENS = [
@@ -161,24 +162,33 @@ export default function HeroAsymmetric() {
             animate="show"
             className="lg:col-span-8 order-2 lg:order-1"
           >
-            <h1 className="font-display leading-[0.84] tracking-[-0.03em]">
-              <span className="block overflow-hidden">
-                <motion.span
-                  variants={wordVariants}
-                  className="inline-block text-[clamp(4rem,14vw,13rem)] font-[800]"
-                >
-                  SHARMA
-                </motion.span>
-              </span>
-              <span className="block overflow-hidden mt-1 md:mt-2 pl-[8%]">
-                <motion.span
-                  variants={wordVariants}
-                  className="inline-block text-[clamp(3rem,11vw,10rem)] italic font-light text-[hsl(var(--accent))]"
-                >
-                  anurag.
-                </motion.span>
-              </span>
-            </h1>
+            <div className="relative">
+              <p className="font-mono text-[10px] md:text-[11px] tracking-[0.42em] uppercase text-muted-foreground mb-5 md:mb-6 max-w-[52ch] leading-relaxed">
+                Full-stack · Blockchain · Systems — shipping production software from Delhi.
+              </p>
+              <h1 className="font-display leading-[0.82] tracking-[-0.045em]">
+                <span className="block overflow-hidden">
+                  <motion.span
+                    variants={wordVariants}
+                    className="inline-block text-[clamp(4rem,14vw,13rem)] font-[800] text-foreground"
+                  >
+                    SHARMA
+                  </motion.span>
+                </span>
+                <span className="block h-px w-[min(42vw,220px)] bg-[hsl(var(--accent))]/35 my-4 md:my-5 ml-[4%]" aria-hidden />
+                <span className="block overflow-hidden mt-1 md:mt-2 pl-[8%]">
+                  <motion.span
+                    variants={wordVariants}
+                    className="inline-block text-[clamp(3rem,11vw,10rem)] italic font-light text-[hsl(var(--accent))]"
+                  >
+                    anurag.
+                  </motion.span>
+                </span>
+              </h1>
+              <p className="mt-6 md:mt-8 font-mono text-[10px] tracking-[0.28em] uppercase text-muted-foreground/90">
+                Anurag Sharma · Engineer · India / remote
+              </p>
+            </div>
 
             {/* Description + CTA cluster */}
             <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10 max-w-[880px]">
@@ -195,7 +205,7 @@ export default function HeroAsymmetric() {
                 variants={fadeUpVariants}
                 className="flex flex-col items-start gap-5"
               >
-                <Link href="/contact" className="inline-block">
+                <Link href={HOME_CONTACT} className="inline-block">
                   <MagneticButton
                     type="button"
                     className="group inline-flex items-center gap-3 px-7 py-4 bg-foreground text-background rounded-full text-sm font-medium tracking-wide hover:bg-foreground/90 transition-colors"

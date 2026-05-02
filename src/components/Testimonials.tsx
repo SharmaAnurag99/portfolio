@@ -1,6 +1,6 @@
 import { getPayload } from 'payload'
 import configPromise from '../../payload.config'
-import { resolveMediaUrl } from '@/lib/media'
+import { resolveMediaUrlIndexed } from '@/lib/media'
 import { useCmsContent } from '@/lib/use-cms-content'
 import { localTestimonials } from '@/data/local/testimonials'
 import TestimonialsMarquee, { MarqueeTestimonial } from './TestimonialsMarquee'
@@ -18,8 +18,8 @@ const Testimonials = async () => {
       ).docs
     : localTestimonials
 
-  const testimonials: MarqueeTestimonial[] = rawDocs.map((t: any) => ({
-    image: cmsEnabled ? resolveMediaUrl(t.image) : t.image || '/placeholder.svg',
+  const testimonials: MarqueeTestimonial[] = rawDocs.map((t: any, i: number) => ({
+    image: cmsEnabled ? resolveMediaUrlIndexed(t.image, i) : t.image || resolveMediaUrlIndexed(null, i),
     content: t.content || '',
     name: t.name || '',
     role: t.role || '',

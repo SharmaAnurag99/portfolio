@@ -21,6 +21,14 @@ function normalizeUrl(url: string): string {
   }
 }
 
+const PLACEHOLDER_ROTATION = [
+  '/images/project-a.svg',
+  '/images/project-b.svg',
+  '/images/project-c.svg',
+  '/media/avatar-a.svg',
+  '/media/avatar-b.svg',
+]
+
 export function resolveMediaUrl(media: MediaLike, fallback = '/placeholder.svg'): string {
   if (!media) return fallback;
 
@@ -33,4 +41,10 @@ export function resolveMediaUrl(media: MediaLike, fallback = '/placeholder.svg')
   }
 
   return fallback;
+}
+
+/** Rotating local SVG placeholders so grids never look empty or repetitive. */
+export function resolveMediaUrlIndexed(media: MediaLike, index: number): string {
+  const fb = PLACEHOLDER_ROTATION[Math.abs(index) % PLACEHOLDER_ROTATION.length]
+  return resolveMediaUrl(media, fb)
 }

@@ -42,54 +42,69 @@ const Experience = async () => {
         : localExperience;
 
     return (
-        <section id="experience" className="py-24 bg-background">
-            <div className="container mx-auto px-6">
-                <div className="mb-16">
-                    <h2 className="text-4xl md:text-5xl font-display mb-6">Work Experience</h2>
-                    <p className="text-muted-foreground max-w-2xl text-lg">
-                        A timeline of my professional journey and the value I've delivered across different roles.
-                    </p>
-                </div>
+        <section id="experience" className="py-0 bg-background">
+            <details className="experience-disclosure group border-y border-border bg-background">
+                <summary className="list-none cursor-pointer container mx-auto px-6 py-10 md:py-14 flex flex-col md:flex-row md:items-end md:justify-between gap-8 text-left [&::-webkit-details-marker]:hidden">
+                    <div className="max-w-3xl">
+                        <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground block mb-4">
+                            — Optional depth
+                        </span>
+                        <h2 className="text-4xl md:text-5xl font-display mb-3 tracking-tight">
+                            Timeline & experience
+                        </h2>
+                        <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-2xl">
+                            Collapsed by default so the page stays tight. Open when you want roles, dates, and full context.
+                        </p>
+                    </div>
+                    <span className="inline-flex items-center gap-3 font-mono text-[10px] tracking-[0.28em] uppercase text-muted-foreground shrink-0">
+                        <span className="exp-chevron inline-block text-xs leading-none transition-transform duration-300">▼</span>
+                        Expand
+                    </span>
+                </summary>
 
-                <div className="relative">
-                    {/* Vertical line - hidden on mobile, visible on md+ */}
-                    <div className="hidden md:block absolute left-[300px] top-0 bottom-0 w-px bg-border"></div>
+                <div className="border-t border-border">
+                    <div className="container mx-auto px-6 py-16 md:py-24">
+                        <div className="relative">
+                            {/* Vertical line - hidden on mobile, visible on md+ */}
+                            <div className="hidden md:block absolute left-[300px] top-0 bottom-0 w-px bg-border"></div>
 
-                    <div className="space-y-16">
-                        {experiences.map((exp: any, index: number) => {
-                            const role = cmsEnabled ? (exp.title || '').split(' at ')[0] : exp.role;
-                            const company = cmsEnabled ? (exp.title || '').split(' at ').slice(1).join(' at ') : exp.company;
-                            const contentParts = cmsEnabled ? (exp.content || '').split('\n\n') : [];
-                            const period = cmsEnabled ? contentParts[contentParts.length - 1] : exp.period;
-                            const description = cmsEnabled ? contentParts.slice(0, -1).join('\n\n') : exp.description;
+                            <div className="space-y-16">
+                                {experiences.map((exp: any, index: number) => {
+                                    const role = cmsEnabled ? (exp.title || '').split(' at ')[0] : exp.role;
+                                    const company = cmsEnabled ? (exp.title || '').split(' at ').slice(1).join(' at ') : exp.company;
+                                    const contentParts = cmsEnabled ? (exp.content || '').split('\n\n') : [];
+                                    const period = cmsEnabled ? contentParts[contentParts.length - 1] : exp.period;
+                                    const description = cmsEnabled ? contentParts.slice(0, -1).join('\n\n') : exp.description;
 
-                            return (
-                                <div key={index} className="relative grid md:grid-cols-[300px_1fr] gap-8 md:gap-0">
-                                    {/* Date/Period */}
-                                    <div className="md:pr-12 relative">
-                                        {/* Dot on the line */}
-                                        <div className="hidden md:block absolute right-[-5px] top-2 w-2.5 h-2.5 rounded-full bg-primary z-10 ring-4 ring-background"></div>
-                                        <span className="text-muted-foreground font-medium">{period}</span>
-                                    </div>
+                                    return (
+                                        <div key={index} className="relative grid md:grid-cols-[300px_1fr] gap-8 md:gap-0">
+                                            {/* Date/Period */}
+                                            <div className="md:pr-12 relative">
+                                                {/* Dot on the line */}
+                                                <div className="hidden md:block absolute right-[-5px] top-2 w-2.5 h-2.5 rounded-full bg-primary z-10 ring-4 ring-background"></div>
+                                                <span className="text-muted-foreground font-medium">{period}</span>
+                                            </div>
 
-                                    {/* Content */}
-                                    <div className="md:pl-12 group">
-                                        <h3 className="text-2xl font-display mb-1 group-hover:text-primary transition-colors duration-300">
-                                            {role}
-                                        </h3>
-                                        <div className="text-lg font-medium mb-4 text-foreground/80">
-                                            {company}
+                                            {/* Content */}
+                                            <div className="md:pl-12 group">
+                                                <h3 className="text-2xl font-display mb-1 group-hover:text-primary transition-colors duration-300">
+                                                    {role}
+                                                </h3>
+                                                <div className="text-lg font-medium mb-4 text-foreground/80">
+                                                    {company}
+                                                </div>
+                                                <p className="text-muted-foreground leading-relaxed max-w-2xl whitespace-pre-wrap">
+                                                    {description}
+                                                </p>
+                                            </div>
                                         </div>
-                                        <p className="text-muted-foreground leading-relaxed max-w-2xl whitespace-pre-wrap">
-                                            {description}
-                                        </p>
-                                    </div>
-                                </div>
-                            )
-                        })}
+                                    )
+                                })}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </details>
         </section>
     );
 };

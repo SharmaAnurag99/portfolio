@@ -61,27 +61,27 @@
   }
 
   .dark {
-    /* Dark — deep blue-warm mix (premium, not flat gray) */
-    --background: 228 16% 9%;
-    --foreground: 42 28% 95%;
+    /* Dark — lifted surfaces, readable muted text, warm cream ink */
+    --background: 225 18% 11%;
+    --foreground: 42 30% 96%;
 
-    --card: 228 14% 11%;
-    --card-foreground: 42 28% 95%;
+    --card: 225 16% 13%;
+    --card-foreground: 42 30% 96%;
 
-    --popover: 228 14% 11%;
-    --popover-foreground: 42 28% 95%;
+    --popover: 225 16% 13%;
+    --popover-foreground: 42 30% 96%;
 
-    --primary: 42 28% 95%;
-    --primary-foreground: 228 18% 9%;
+    --primary: 42 30% 96%;
+    --primary-foreground: 225 20% 10%;
 
-    --secondary: 228 12% 16%;
+    --secondary: 225 14% 17%;
     --secondary-foreground: 42 28% 95%;
 
-    --muted: 228 11% 17%;
-    --muted-foreground: 220 12% 68%;
+    --muted: 225 12% 19%;
+    --muted-foreground: 220 14% 72%;
 
-    --accent: 14 62% 56%;
-    --accent-foreground: 228 20% 9%;
+    --accent: 16 58% 58%;
+    --accent-foreground: 225 22% 9%;
 
     --cream-deep: 228 12% 13%;
     --charcoal-warm: 222 18% 8%;
@@ -90,9 +90,9 @@
     --destructive: 0 62.8% 38%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 228 12% 22%;
-    --input: 228 12% 22%;
-    --ring: 14 62% 56%;
+    --border: 225 12% 24%;
+    --input: 225 12% 24%;
+    --ring: 16 58% 58%;
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -168,25 +168,26 @@
     --muted-foreground: 220 12% 66%;
   }
 
+  /* Light: “spotlight” = elevated cool-gray panel (not a black band in daytime) */
   .section-spotlight,
   .section-charcoal {
-    --background: 28 14% 11%;
-    --foreground: 42 32% 96%;
-    --card: 28 14% 14%;
-    --card-foreground: 42 32% 96%;
-    --popover: 28 14% 14%;
-    --popover-foreground: 42 32% 96%;
-    --muted: 28 12% 18%;
-    --muted-foreground: 42 18% 72%;
-    --primary: 42 32% 96%;
-    --primary-foreground: 28 14% 11%;
-    --secondary: 28 12% 20%;
-    --secondary-foreground: 42 32% 96%;
-    --accent: 14 62% 56%;
-    --accent-foreground: 28 14% 11%;
-    --border: 42 15% 26%;
-    --input: 42 15% 26%;
-    --ring: 42 32% 96%;
+    --background: 232 16% 93%;
+    --foreground: 228 18% 14%;
+    --card: 232 14% 91%;
+    --card-foreground: 228 18% 14%;
+    --popover: 232 14% 91%;
+    --popover-foreground: 228 18% 14%;
+    --muted: 232 12% 88%;
+    --muted-foreground: 228 10% 38%;
+    --primary: 228 18% 14%;
+    --primary-foreground: 42 35% 97%;
+    --secondary: 232 12% 86%;
+    --secondary-foreground: 228 18% 14%;
+    --accent: 14 56% 44%;
+    --accent-foreground: 42 35% 97%;
+    --border: 228 14% 78%;
+    --input: 228 14% 78%;
+    --ring: 14 56% 44%;
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
   }
@@ -301,6 +302,10 @@
 
   .image-reveal.revealed {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .experience-disclosure[open] .exp-chevron {
+    transform: rotate(180deg);
   }
 }
 

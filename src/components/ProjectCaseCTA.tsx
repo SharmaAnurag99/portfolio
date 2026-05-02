@@ -3,13 +3,14 @@
 import { useRouter } from 'next/navigation'
 import { ArrowRight } from '@phosphor-icons/react'
 import MagneticButton from './MagneticButton'
+import { HOME_CONTACT } from '@/lib/site-links'
 
 export default function ProjectCaseCTA() {
   const router = useRouter()
   return (
     <MagneticButton
       type="button"
-      onClick={() => router.push('/contact')}
+      onClick={() => router.push(HOME_CONTACT)}
       className="group inline-flex items-center gap-3 px-7 py-4 bg-foreground text-background rounded-full text-sm font-medium tracking-wide hover:bg-foreground/90 transition-colors"
     >
       <span className="inline-flex items-center gap-2">
