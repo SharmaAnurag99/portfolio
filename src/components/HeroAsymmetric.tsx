@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, ArrowDown } from '@phosphor-icons/react'
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import MagneticButton from './MagneticButton'
 import { HOME_CONTACT } from '@/lib/site-links'
 
@@ -65,6 +65,7 @@ export default function HeroAsymmetric() {
   const sectionRef = useRef<HTMLElement>(null)
   const reduceMotion = useReducedMotion()
   const [now, setNow] = useState<string>('')
+  const [showIntroCard, setShowIntroCard] = useState(false)
 
   // Live IST clock
   useEffect(() => {
@@ -88,6 +89,18 @@ export default function HeroAsymmetric() {
   const photoY = useTransform(scrollYProgress, [0, 1], [0, -60])
 
   const marqueeStream = [...ROLE_TOKENS, ...ROLE_TOKENS, ...ROLE_TOKENS]
+  const introLine =
+    "Hello, I am Anurag Sharma. I build fast, modern products with Next.js, blockchain and cloud systems. Let's build something impactful together."
+
+  const speakIntro = () => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return
+    window.speechSynthesis.cancel()
+    const utterance = new SpeechSynthesisUtterance(introLine)
+    utterance.rate = 1
+    utterance.pitch = 1
+    utterance.volume = 0.95
+    window.speechSynthesis.speak(utterance)
+  }
 
   return (
     <section
@@ -269,6 +282,16 @@ export default function HeroAsymmetric() {
               <span className="absolute top-4 right-4 font-mono text-[9px] tracking-[0.3em] uppercase text-white mix-blend-difference">
                 Est. 2025
               </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowIntroCard(true)
+                  speakIntro()
+                }}
+                className="absolute bottom-4 right-4 rounded-full border border-white/35 bg-black/25 px-3 py-1.5 text-[10px] font-mono tracking-[0.25em] uppercase text-white backdrop-blur hover:bg-black/40 transition-colors"
+              >
+                Tap to intro
+              </button>
             </motion.div>
 
             {/* Live signals — vertical mini-strip below photo */}
@@ -307,6 +330,54 @@ export default function HeroAsymmetric() {
           </motion.div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {showIntroCard ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/60 p-6"
+            onClick={() => setShowIntroCard(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 8 }}
+              transition={{ duration: 0.25 }}
+              className="w-full max-w-xl rounded-2xl border border-border bg-background p-6 md:p-8 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground mb-3">
+                About Anurag
+              </p>
+              <h3 className="font-display text-4xl md:text-5xl tracking-tight mb-4">
+                Hello, I am Anurag<span className="text-foreground/30">.</span>
+              </h3>
+              <p className="text-foreground/75 leading-relaxed mb-6">
+                I build fast and thoughtful digital products from idea to launch. My focus is
+                on clean UX, strong engineering, and outcomes that actually move business.
+              </p>
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={speakIntro}
+                  className="rounded-full bg-foreground text-background px-4 py-2 text-sm"
+                >
+                  Speak intro
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowIntroCard(false)}
+                  className="rounded-full border border-border px-4 py-2 text-sm text-foreground/80"
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
 
       {/* Kinetic role marquee — full bleed, hero foot */}
       <div className="hero-marquee relative border-y border-border overflow-hidden bg-[hsl(var(--background))]">

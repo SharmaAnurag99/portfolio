@@ -17,6 +17,7 @@ import Testimonials from '@/components/Testimonials';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import PageProgress from '@/components/PageProgress';
+import SectionNarrator from '@/components/SectionNarrator';
 
 /**
  * Homepage narrative — high conversion, low visual fatigue:
@@ -33,6 +34,7 @@ const Home = () => {
         <ClientAnimationWrapper>
             <div className="min-h-[100dvh] bg-background">
                 <PageProgress />
+                <SectionNarrator />
                 <Header />
 
                 <div className="section-default">
@@ -51,11 +53,11 @@ const Home = () => {
                     <ProjectsReel />
                 </div>
 
-                <div className="section-alt">
+                <div id="stats" className="section-alt">
                     <StatsCounter />
                 </div>
 
-                <div className="section-default">
+                <div id="social" className="section-default">
                     <Testimonials />
                 </div>
 
@@ -63,15 +65,15 @@ const Home = () => {
                     <SkillsOS />
                 </div>
 
-                <div className="section-default">
+                <div id="manifesto" className="section-default">
                     <Manifesto />
                 </div>
 
-                <div className="section-alt">
+                <div id="journey" className="section-alt">
                     <Experience />
                 </div>
 
-                <div className="section-default">
+                <div id="services" className="section-default">
                     <Services />
                 </div>
 

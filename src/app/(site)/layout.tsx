@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import '../globals.css';
 import Providers from '../providers';
 import JsonLd from '@/components/JsonLd';
@@ -66,6 +67,8 @@ export default function SiteLayout({
 }: {
     children: React.ReactNode;
 }) {
+    const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
     return (
         <html lang="en" suppressHydrationWarning>
             <head>
@@ -81,6 +84,22 @@ export default function SiteLayout({
                     <NoiseOverlay />
                     <Analytics />
                 </Providers>
+                {gaId ? (
+                    <>
+                        <Script
+                            src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+                            strategy="afterInteractive"
+                        />
+                        <Script id="google-analytics" strategy="afterInteractive">
+                            {`
+                              window.dataLayer = window.dataLayer || [];
+                              function gtag(){dataLayer.push(arguments);}
+                              gtag('js', new Date());
+                              gtag('config', '${gaId}');
+                            `}
+                        </Script>
+                    </>
+                ) : null}
             </body>
         </html>
     );

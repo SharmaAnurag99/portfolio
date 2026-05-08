@@ -97,101 +97,89 @@ const SkillsOS = async () => {
 
   return (
     <section id="stack" className="relative py-24 md:py-32 bg-background overflow-hidden">
-      {/* Subtle CRT scan-line overlay — premium, very low opacity */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-0 opacity-[0.035] mix-blend-multiply"
-        style={{
-          backgroundImage:
-            'repeating-linear-gradient(to bottom, currentColor 0px, currentColor 1px, transparent 1px, transparent 3px)',
-        }}
-      />
-
       <div className="container mx-auto px-6 relative">
-        {/* Section label */}
         <div className="flex items-center justify-between mb-10 md:mb-14">
           <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
-            — Operating system / 07
+            — Core stack / 07
           </span>
           <span className="hidden md:inline-block w-20 h-px bg-border" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-12 mb-16 md:mb-20">
           <h2 className="lg:col-span-8 font-display text-[clamp(3rem,9vw,8rem)] leading-[0.9] tracking-tight">
-            STACK<span className="text-foreground/30">.</span>
+            SKILLS<span className="text-foreground/30">.</span>
           </h2>
           <p className="lg:col-span-4 text-foreground/70 text-sm md:text-base leading-relaxed max-w-[44ch]">
-            What I reach for in production. Proficiency dots are honest — five means
-            shipped revenue with it more than once.
+            Cleaner view: top production-ready tools first, then full grouped stack.
           </p>
         </div>
 
-        {/* Terminal-style window */}
-        <div className="border border-border bg-card/40 backdrop-blur-[2px]">
-          {/* Window chrome */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/40">
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-foreground/15" />
-              <span className="w-2.5 h-2.5 rounded-full bg-foreground/15" />
-              <span className="w-2.5 h-2.5 rounded-full bg-foreground/15" />
-            </div>
-            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
-              ~/anurag/.stack — zsh
-            </span>
-            <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground/60 hidden md:block">
-              {String(skillsData.length).padStart(2, '0')} entries
-            </span>
+        <div className="mb-10 rounded-2xl border border-border bg-card/30 p-5 md:p-8">
+          <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground mb-4">
+            Top tools I use daily
+          </p>
+          <div className="flex flex-wrap gap-2.5">
+            {skillsData
+              .slice()
+              .sort((a, b) => {
+                const aP = (PROFICIENCY_OVERRIDES[a.name] || ROW_FALLBACK).p
+                const bP = (PROFICIENCY_OVERRIDES[b.name] || ROW_FALLBACK).p
+                return bP - aP
+              })
+              .slice(0, 10)
+              .map((skill) => (
+                <span
+                  key={skill.name}
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-sm text-foreground/90 bg-background/60"
+                >
+                  {skill.name}
+                  <span className="font-mono text-[9px] text-muted-foreground">
+                    {renderDots((PROFICIENCY_OVERRIDES[skill.name] || ROW_FALLBACK).p)}
+                  </span>
+                </span>
+              ))}
           </div>
+        </div>
 
-          {/* Body */}
-          <div className="divide-y divide-border">
-            {ordered.map((group, gi) => {
-              const term = CATEGORY_TO_TERMINAL[group.category] || group.category.toLowerCase().replace(/\s+/g, '.')
-              return (
-                <div key={gi} className="px-5 md:px-8 py-8 md:py-10">
-                  <div className="flex items-baseline gap-3 mb-6">
-                    <span className="font-mono text-[hsl(var(--accent))] text-sm">{'>'}</span>
-                    <span className="font-mono text-xs md:text-sm tracking-[0.2em] uppercase text-foreground/90">
-                      {term}
-                    </span>
-                    <span className="hidden md:inline-block flex-1 border-b border-dashed border-border/70 mb-1" />
-                    <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground/70">
-                      {String(group.items.length).padStart(2, '0')}
-                    </span>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          {ordered.map((group) => {
+            const term =
+              CATEGORY_TO_TERMINAL[group.category] ||
+              group.category.toLowerCase().replace(/\s+/g, '.')
+            const visible = group.items.slice(0, 8)
+            const remaining = Math.max(0, group.items.length - visible.length)
 
-                  <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-3">
-                    {group.items.map((skill, si) => (
-                      <li
-                        key={si}
-                        className="flex items-center justify-between gap-4 py-2 border-b border-border/50 group"
-                      >
-                        <span className="text-foreground/90 text-sm md:text-base">
-                          {skill.name}
-                        </span>
-                        <span className="flex items-center gap-3 shrink-0">
-                          <span aria-hidden className="font-mono tracking-[0.15em] text-foreground/80 text-xs">
-                            {renderDots(skill.proficiency)}
-                          </span>
-                          <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-muted-foreground/80 text-right min-w-[10ch] hidden sm:inline-block">
-                            {skill.meta}
-                          </span>
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+            return (
+              <article
+                key={group.category}
+                className="rounded-2xl border border-border bg-card/25 p-5 md:p-6"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-mono text-xs tracking-[0.2em] uppercase text-foreground/90">
+                    {term}
+                  </span>
+                  <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-muted-foreground">
+                    {String(group.items.length).padStart(2, '0')}
+                  </span>
                 </div>
-              )
-            })}
-
-            {/* Prompt line */}
-            <div className="px-5 md:px-8 py-6 flex items-center gap-3">
-              <span className="font-mono text-[hsl(var(--accent))] text-sm">{'>'}</span>
-              <span className="font-mono text-xs text-foreground/70">
-                _ <span className="inline-block w-2 h-4 align-middle bg-foreground animate-pulse ml-1" />
-              </span>
-            </div>
-          </div>
+                <div className="flex flex-wrap gap-2">
+                  {visible.map((skill) => (
+                    <span
+                      key={skill.name}
+                      className="rounded-full border border-border/80 px-2.5 py-1 text-xs md:text-sm text-foreground/80"
+                    >
+                      {skill.name}
+                    </span>
+                  ))}
+                  {remaining > 0 ? (
+                    <span className="rounded-full border border-dashed border-border/80 px-2.5 py-1 text-xs md:text-sm text-muted-foreground">
+                      +{remaining} more
+                    </span>
+                  ) : null}
+                </div>
+              </article>
+            )
+          })}
         </div>
       </div>
     </section>
