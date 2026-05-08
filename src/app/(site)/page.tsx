@@ -1,5 +1,3 @@
-// 60-second ISR safety net — Payload `afterChange` hooks call revalidatePath('/')
-// for instant freshness; this is the fallback if a hook fails to fire.
 export const revalidate = 60;
 
 import Header from '@/components/Header';
@@ -15,26 +13,28 @@ import Footer from '@/components/Footer';
 import PageProgress from '@/components/PageProgress';
 import Experience from '@/components/Experience';
 import Skills from '@/components/Skills';
+import StatsCounter from '@/components/StatsCounter';
 
 const Home = () => {
-    return (
-        <ClientAnimationWrapper>
-            <div className="min-h-screen bg-background cursor-none md:cursor-none">
-                <PageProgress />
-                <Header />
-                <Hero />
-                <LogoMarquee />
-                <About />
-                <Skills />
-                <Experience />
-                <Services />
-                <Portfolio />
-                <Testimonials />
-                <Contact />
-                <Footer />
-            </div>
-        </ClientAnimationWrapper>
-    );
+  return (
+    <ClientAnimationWrapper>
+      <div className="min-h-screen bg-background cursor-none md:cursor-none">
+        <PageProgress />
+        <Header />
+        <Hero />
+        <LogoMarquee />
+        <About />
+        <Skills />
+        <StatsCounter />
+        <Experience />
+        <Services />
+        <Portfolio />
+        <Testimonials />
+        <Contact />
+        <Footer />
+      </div>
+    </ClientAnimationWrapper>
+  );
 };
 
 export default Home;

@@ -53,9 +53,26 @@ const Contact = () => {
     <section id="contact" className="py-24 section-cream">
       <Toaster position="bottom-right" />
       <div className="container mx-auto px-6">
-        <h2 className="font-display text-5xl md:text-7xl mb-16 animate-on-scroll">
+        <h2 className="font-display text-5xl md:text-7xl mb-6 animate-on-scroll">
           CONTACT ME
         </h2>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mb-16 animate-on-scroll">
+          <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
+            <span className="relative flex w-1.5 h-1.5">
+              <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75" />
+              <span className="relative w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            </span>
+            Currently accepting projects
+          </span>
+          <span className="hidden sm:inline-block w-px h-3 bg-border" />
+          <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
+            Median reply: under 6 hours
+          </span>
+          <span className="hidden md:inline-block w-px h-3 bg-border" />
+          <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-muted-foreground">
+            0% project churn to date
+          </span>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Contact Info */}

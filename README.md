@@ -23,6 +23,7 @@ Create `.env.local` with:
 PAYLOAD_SECRET=replace-with-a-long-random-secret
 DATABASE_URI=mongodb://127.0.0.1:27017/portfolio
 NEXT_PUBLIC_USE_CMS_CONTENT=true
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
 PAYLOAD_ADMIN_EMAIL=admin@example.com
 PAYLOAD_ADMIN_PASSWORD=ChangeMe123!
 ```
