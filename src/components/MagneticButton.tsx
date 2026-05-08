@@ -1,45 +1,60 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 import { cn } from '@/lib/utils'
 
-type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type Props = React.ComponentProps<typeof motion.button> & {
   strength?: number
+  childTrailFactor?: number
 }
 
+const SPRING = { stiffness: 220, damping: 18, mass: 0.4 }
+
+/**
+ * Magnetic button — Framer Motion motion values, never useState.
+ * Uses transform-only animation for hardware acceleration.
+ * Disabled on touch devices via @media hover.
+ */
 export default function MagneticButton({
   children,
   className,
   strength = 0.35,
+  childTrailFactor = 0.45,
   ...props
 }: Props) {
   const ref = useRef<HTMLButtonElement>(null)
-  const [pos, setPos] = useState({ x: 0, y: 0 })
+
+  const mx = useMotionValue(0)
+  const my = useMotionValue(0)
+  const x = useSpring(mx, SPRING)
+  const y = useSpring(my, SPRING)
+  const cx = useTransform(x, (v) => v * childTrailFactor)
+  const cy = useTransform(y, (v) => v * childTrailFactor)
 
   return (
-    <button
+    <motion.button
       ref={ref}
       onMouseMove={(e) => {
         const r = ref.current?.getBoundingClientRect()
         if (!r) return
-        setPos({
-          x: (e.clientX - (r.left + r.width / 2)) * strength,
-          y: (e.clientY - (r.top + r.height / 2)) * strength,
-        })
+        mx.set((e.clientX - (r.left + r.width / 2)) * strength)
+        my.set((e.clientY - (r.top + r.height / 2)) * strength)
       }}
-      onMouseLeave={() => setPos({ x: 0, y: 0 })}
-      style={{ transform: `translate3d(${pos.x}px, ${pos.y}px, 0)` }}
+      onMouseLeave={() => {
+        mx.set(0)
+        my.set(0)
+      }}
+      style={{ x, y }}
       className={cn(
-        'transition-transform duration-200 ease-out will-change-transform',
+        'will-change-transform [@media(hover:none)]:!transform-none',
         className,
       )}
       {...props}
     >
-      <span className="block transition-transform duration-200 ease-out"
-        style={{ transform: `translate3d(${pos.x * 0.4}px, ${pos.y * 0.4}px, 0)` }}
-      >
+      <motion.span style={{ x: cx, y: cy }} className="block will-change-transform">
         {children}
-      </span>
-    </button>
+      </motion.span>
+    </motion.button>
   )
 }

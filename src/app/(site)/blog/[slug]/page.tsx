@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from '@phosphor-icons/react/dist/ssr';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { notFound } from 'next/navigation';
@@ -246,7 +246,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     {/* Header Section */}
                     <header className="container mx-auto px-6 max-w-4xl text-center mb-12">
                         <Link href="/blog" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-10 transition-colors">
-                            <ArrowLeft className="w-4 h-4 mr-2" />
+                            <ArrowLeft className="w-4 h-4 mr-2" weight="regular" />
                             Back to Stories
                         </Link>
 

@@ -33,6 +33,14 @@ export const Testimonials: CollectionConfig = {
             type: "upload",
             relationTo: "media",
             required: true
-        }
+        },
+        {
+            name: "linkedinUrl",
+            type: "text",
+            label: "LinkedIn URL",
+            admin: {
+                description: "Optional. If set, testimonial card shows a 'Verified on LinkedIn' badge that links to this URL.",
+            },
+        },
     ]
 }

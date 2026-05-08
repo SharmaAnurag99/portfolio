@@ -1,11 +1,11 @@
-import { ArrowUpRight, Code2, Database, Terminal, Workflow } from 'lucide-react';
+import { ArrowUpRight, Code, Database, Terminal, FlowArrow } from '@phosphor-icons/react/dist/ssr';
 
 const services = [
   {
     number: '01',
     title: 'FULL STACK DEVELOPMENT',
     description: 'Building scalable, production-ready web applications using modern frameworks. Focus on performance, SEO, and seamless user experiences.',
-    icon: Code2,
+    icon: Code,
     tags: ["React", "Next.js", "Node.js", "TypeScript"],
     className: "md:col-span-2",
   },
@@ -29,7 +29,7 @@ const services = [
     number: '04',
     title: 'TECHNICAL STRUCTURE',
     description: 'Providing architectural guidance and code audits to ensure your software is robust, secure, and ready for scale.',
-    icon: Workflow,
+    icon: FlowArrow,
     tags: ["Architecture", "System Design", "Cloud Architecture"],
     className: "md:col-span-2",
   },
@@ -37,7 +37,7 @@ const services = [
 
 const Services = () => {
   return (
-    <section id="services" className="services-section py-24 section-cream">
+    <section id="services" className="services-section py-24">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
@@ -66,7 +66,7 @@ const Services = () => {
                 <div>
                   <div className="flex justify-between items-start mb-8">
                     <div className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                      <service.icon className="w-6 h-6 text-foreground" strokeWidth={1.5} />
+                      <service.icon className="w-6 h-6 text-foreground" weight="regular" />
                     </div>
                     <span className="flex items-center gap-2 text-xs font-medium text-muted-foreground border border-border px-3 py-1 rounded-full bg-background/50 backdrop-blur-sm">
                       {service.number}
@@ -95,7 +95,7 @@ const Services = () => {
 
               {/* Corner Icon */}
               <div className="absolute top-8 right-8 text-foreground/20 group-hover:text-foreground transition-colors duration-300">
-                <ArrowUpRight className="w-6 h-6" />
+                <ArrowUpRight className="w-6 h-6" weight="regular" />
               </div>
             </div>
           ))}

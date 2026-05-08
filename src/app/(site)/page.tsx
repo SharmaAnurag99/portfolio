@@ -1,40 +1,92 @@
+// 60-second ISR safety net — Payload `afterChange` hooks call revalidatePath('/')
+// for instant freshness; this is the fallback if a hook fails to fire.
 export const revalidate = 60;
 
 import Header from '@/components/Header';
-import Hero from '@/components/Hero';
+import HeroAsymmetric from '@/components/HeroAsymmetric';
+import NowStrip from '@/components/NowStrip';
 import LogoMarquee from '@/components/LogoMarquee';
 import ClientAnimationWrapper from '@/components/ClientAnimationWrapper';
-import About from '@/components/About';
+import Manifesto from '@/components/Manifesto';
+import StatsCounter from '@/components/StatsCounter';
+import SkillsOS from '@/components/SkillsOS';
+import Experience from '@/components/Experience';
 import Services from '@/components/Services';
-import Portfolio from '@/components/Portfolio';
+import ProjectsReel from '@/components/ProjectsReel';
 import Testimonials from '@/components/Testimonials';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import PageProgress from '@/components/PageProgress';
-import Experience from '@/components/Experience';
-import Skills from '@/components/Skills';
-import StatsCounter from '@/components/StatsCounter';
+import SectionNarrator from '@/components/SectionNarrator';
 
+/**
+ * Homepage narrative — high conversion, low visual fatigue:
+ * Hook → motion/trust → logos → SHOW WORK (spotlight) → proof numbers →
+ * social voices → capabilities → belief → timeline → offerings →
+ * warm CTA → grounded footer.
+ *
+ * Section rhythm: mostly default + subtle `section-alt` stripes; one
+ * `section-spotlight` for the reel; `section-cta` before footer only.
+ * Full tokens adapt in `html.dark` (see globals.css).
+ */
 const Home = () => {
-  return (
-    <ClientAnimationWrapper>
-      <div className="min-h-screen bg-background cursor-none md:cursor-none">
-        <PageProgress />
-        <Header />
-        <Hero />
-        <LogoMarquee />
-        <About />
-        <Skills />
-        <StatsCounter />
-        <Experience />
-        <Services />
-        <Portfolio />
-        <Testimonials />
-        <Contact />
-        <Footer />
-      </div>
-    </ClientAnimationWrapper>
-  );
+    return (
+        <ClientAnimationWrapper>
+            <div className="min-h-[100dvh] bg-background">
+                <PageProgress />
+                <SectionNarrator />
+                <Header />
+
+                <div className="section-default">
+                    <HeroAsymmetric />
+                </div>
+
+                <div className="section-alt">
+                    <NowStrip />
+                </div>
+
+                <div className="section-default">
+                    <LogoMarquee />
+                </div>
+
+                <div id="work" className="section-spotlight">
+                    <ProjectsReel />
+                </div>
+
+                <div id="stats" className="section-alt">
+                    <StatsCounter />
+                </div>
+
+                <div id="social" className="section-default">
+                    <Testimonials />
+                </div>
+
+                <div className="section-alt">
+                    <SkillsOS />
+                </div>
+
+                <div id="manifesto" className="section-default">
+                    <Manifesto />
+                </div>
+
+                <div id="journey" className="section-alt">
+                    <Experience />
+                </div>
+
+                <div id="services" className="section-default">
+                    <Services />
+                </div>
+
+                <div id="contact" className="section-cta">
+                    <Contact />
+                </div>
+
+                <div className="section-spotlight">
+                    <Footer />
+                </div>
+            </div>
+        </ClientAnimationWrapper>
+    );
 };
 
 export default Home;

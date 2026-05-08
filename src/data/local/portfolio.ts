@@ -24,7 +24,7 @@ export const localPortfolioProjects: LocalPortfolioProject[] = [
     url: 'https://www.rivaarts.in',
   },
   {
-    image: '/images/project-b.svg',
+    image: '/images/project-c.svg',
     category: 'WEB DEVELOPMENT',
     title: 'Elite Cafe',
     content:
@@ -32,7 +32,7 @@ export const localPortfolioProjects: LocalPortfolioProject[] = [
     url: 'https://elite-cafe.sharmaanurag.in',
   },
   {
-    image: '/images/project-b.svg',
+    image: '/images/project-a.svg',
     category: 'E-COMMERCE',
     title: 'Astrol K Sharma',
     content:
@@ -40,7 +40,7 @@ export const localPortfolioProjects: LocalPortfolioProject[] = [
     url: 'https://astrolksharma.com',
   },
   {
-    image: '/images/project-a.svg',
+    image: '/images/project-c.svg',
     category: 'WEB DEVELOPMENT',
     title: 'ArtShowcase',
     content:

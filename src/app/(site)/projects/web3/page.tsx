@@ -1,4 +1,4 @@
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -70,7 +70,7 @@ const Web3Projects = async () => {
                                         />
                                         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                             <div className="bg-background/90 backdrop-blur-sm p-4 rounded-full">
-                                                <ArrowUpRight className="w-6 h-6 text-foreground" />
+                                                <ArrowUpRight className="w-6 h-6 text-foreground" weight="regular" />
                                             </div>
                                         </div>
                                     </div>

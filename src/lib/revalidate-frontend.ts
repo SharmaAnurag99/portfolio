@@ -13,7 +13,6 @@ const revalidate = (paths: string[], context: string) => {
   try {
     for (const p of paths) revalidatePath(p)
   } catch (err) {
-    // Outside Next request lifecycle (CLI, seed scripts) — safe no-op.
     if (process.env.PAYLOAD_DEBUG === 'true') {
       // eslint-disable-next-line no-console
       console.warn(`[revalidate-frontend:${context}] revalidate skipped`, err)

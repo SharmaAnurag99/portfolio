@@ -62,8 +62,9 @@ export default {
         },
       },
       fontFamily: {
-        display: ["'Bebas Neue'", "sans-serif"],
-        body: ["'Inter'", "sans-serif"],
+        display: ["'Cabinet Grotesk'", "'Satoshi'", "sans-serif"],
+        body: ["'Satoshi'", "system-ui", "sans-serif"],
+        mono: ["'Geist Mono'", "ui-monospace", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",

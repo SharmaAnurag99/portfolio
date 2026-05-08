@@ -1,16 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { List, X, CaretDown } from '@phosphor-icons/react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
-  const pathname = usePathname();
-
-  const isHome = pathname === '/';
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
@@ -26,6 +23,10 @@ const Header = () => {
               HOME
             </Link>
 
+            <Link href="/#work" className="text-sm font-medium tracking-wide hover:opacity-60 transition-opacity">
+              WORK
+            </Link>
+
             <Link href="/journey" className="text-sm font-medium tracking-wide hover:opacity-60 transition-opacity">
               JOURNEY
             </Link>
@@ -38,7 +39,7 @@ const Header = () => {
             >
               <button className="text-sm font-medium tracking-wide hover:opacity-60 transition-opacity flex items-center gap-1">
                 PROJECTS
-                <ChevronDown size={14} className={`transition-transform duration-200 ${isProjectsOpen ? 'rotate-180' : ''}`} />
+                <CaretDown size={14} weight="regular" className={`transition-transform duration-200 ${isProjectsOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {/* Dropdown Menu */}
@@ -58,7 +59,9 @@ const Header = () => {
               BLOG
             </Link>
 
-            <Link href="/#contact" className="text-sm font-medium tracking-wide hover:opacity-60 transition-opacity">
+            <ThemeToggle />
+
+            <Link href="/contact" className="text-sm font-medium tracking-wide hover:opacity-60 transition-opacity">
               CONTACT
             </Link>
 
@@ -70,7 +73,7 @@ const Header = () => {
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={24} weight="regular" /> : <List size={24} weight="regular" />}
           </button>
         </div>
 
@@ -80,6 +83,9 @@ const Header = () => {
             <div className="flex flex-col gap-4">
               <Link href="/" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
                 HOME
+              </Link>
+              <Link href="/#work" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
+                WORK
               </Link>
               <Link href="/journey" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
                 JOURNEY
@@ -96,7 +102,13 @@ const Header = () => {
               <Link href="/blog" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
                 BLOG
               </Link>
-              <Link href="/#contact" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
+
+              <div className="flex items-center justify-between py-3 border-t border-border/60 mt-2 pt-4">
+                <span className="text-xs font-mono uppercase tracking-[0.2em] text-muted-foreground">Theme</span>
+                <ThemeToggle />
+              </div>
+
+              <Link href="/contact" className="text-sm font-medium tracking-wide py-2" onClick={() => setIsOpen(false)}>
                 CONTACT
               </Link>
             </div>

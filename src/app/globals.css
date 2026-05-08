@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+/* === FONTS — Premium editorial stack ============================
+ * Body: Satoshi (Fontshare) — distinctive sans, replaces Inter
+ * Display: Cabinet Grotesk (Fontshare) — editorial display
+ * Mono: Geist Mono — labels, numbers, code-feel
+ * ================================================================ */
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&f[]=cabinet-grotesk@300,400,500,700,800,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,40 +12,43 @@
 
 @layer base {
   :root {
-    --background: 40 33% 95%;
-    --foreground: 0 0% 0%;
+    /* Light — airy cream, cohesive neutrals (no muddy jumps) */
+    --background: 42 32% 96%;
+    --foreground: 240 8% 11%;
 
-    --card: 40 33% 95%;
-    --card-foreground: 0 0% 0%;
+    --card: 42 28% 95%;
+    --card-foreground: 240 8% 11%;
 
-    --popover: 40 33% 95%;
-    --popover-foreground: 0 0% 0%;
+    --popover: 42 28% 95%;
+    --popover-foreground: 240 8% 11%;
 
-    --primary: 0 0% 0%;
-    --primary-foreground: 40 33% 95%;
+    --primary: 240 8% 11%;
+    --primary-foreground: 42 35% 96%;
 
-    --secondary: 0 0% 0%;
-    --secondary-foreground: 40 33% 95%;
+    --secondary: 43 18% 91%;
+    --secondary-foreground: 240 8% 11%;
 
-    --muted: 40 20% 90%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 43 22% 92%;
+    --muted-foreground: 240 5% 38%;
 
-    --accent: 40 33% 95%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 14 58% 48%;
+    --accent-foreground: 42 35% 97%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 70% 46%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 85%;
-    --input: 0 0% 85%;
-    --ring: 0 0% 0%;
+    --border: 43 16% 86%;
+    --input: 43 16% 86%;
+    --ring: 14 58% 48%;
 
     --radius: 0.5rem;
 
-    /* Custom tokens */
-    --cream: 40 33% 95%;
-    --dark: 0 0% 0%;
-    --dark-surface: 0 0% 8%;
+    --cream: 42 32% 96%;
+    --cream-deep: 43 24% 94%;
+    --charcoal-warm: 28 14% 11%;
+    --accent-soft: 16 38% 94%;
+    --dark: 240 8% 11%;
+    --dark-surface: 228 12% 14%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -52,34 +61,39 @@
   }
 
   .dark {
-    --background: 0 0% 0%;
-    --foreground: 40 33% 95%;
+    /* Dark — lifted surfaces, readable muted text, warm cream ink */
+    --background: 225 18% 11%;
+    --foreground: 42 30% 96%;
 
-    --card: 0 0% 8%;
-    --card-foreground: 40 33% 95%;
+    --card: 225 16% 13%;
+    --card-foreground: 42 30% 96%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 40 33% 95%;
+    --popover: 225 16% 13%;
+    --popover-foreground: 42 30% 96%;
 
-    --primary: 40 33% 95%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 42 30% 96%;
+    --primary-foreground: 225 20% 10%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 40 33% 95%;
+    --secondary: 225 14% 17%;
+    --secondary-foreground: 42 28% 95%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 225 12% 19%;
+    --muted-foreground: 220 14% 72%;
 
-    --accent: 0 0% 15%;
-    --accent-foreground: 40 33% 95%;
+    --accent: 16 58% 58%;
+    --accent-foreground: 225 22% 9%;
 
-    --destructive: 0 62.8% 30.6%;
+    --cream-deep: 228 12% 13%;
+    --charcoal-warm: 222 18% 8%;
+    --accent-soft: 18 28% 18%;
+
+    --destructive: 0 62.8% 38%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 40 33% 95%;
-    
+    --border: 225 12% 24%;
+    --input: 225 12% 24%;
+    --ring: 16 58% 58%;
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -102,21 +116,159 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Satoshi', system-ui, sans-serif;
+    font-feature-settings: 'ss01' on, 'cv11' on;
   }
 }
 
 @layer components {
   .font-display {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Cabinet Grotesk', 'Satoshi', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .font-mono {
+    font-family: 'Geist Mono', ui-monospace, monospace;
   }
 
   .section-dark {
     @apply bg-primary text-primary-foreground;
   }
 
+  /* ---- Homepage section rhythm (conversion narrative + calm eyes)
+   * default / alt = subtle stripe only — avoids color whiplash
+   * spotlight = one cinematic band for work (wow)
+   * cta = warm closing band before grounded footer
+   * Legacy class names (.section-cream, etc.) alias the new system.
+   */
+  .section-default,
   .section-cream {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  .section-alt,
+  .section-cream-deep {
+    --background: 43 24% 94%;
+    --card: 43 21% 92%;
+    --muted: 43 19% 90%;
+    --border: 43 14% 84%;
+    --muted-foreground: 240 6% 40%;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  html.dark .section-alt,
+  html.dark .section-cream-deep {
+    --background: 228 12% 11%;
+    --card: 228 11% 13%;
+    --muted: 228 10% 16%;
+    --border: 228 10% 20%;
+    --muted-foreground: 220 12% 66%;
+  }
+
+  /* Light: “spotlight” = elevated cool-gray panel (not a black band in daytime) */
+  .section-spotlight,
+  .section-charcoal {
+    --background: 232 16% 93%;
+    --foreground: 228 18% 14%;
+    --card: 232 14% 91%;
+    --card-foreground: 228 18% 14%;
+    --popover: 232 14% 91%;
+    --popover-foreground: 228 18% 14%;
+    --muted: 232 12% 88%;
+    --muted-foreground: 228 10% 38%;
+    --primary: 228 18% 14%;
+    --primary-foreground: 42 35% 97%;
+    --secondary: 232 12% 86%;
+    --secondary-foreground: 228 18% 14%;
+    --accent: 14 56% 44%;
+    --accent-foreground: 42 35% 97%;
+    --border: 228 14% 78%;
+    --input: 228 14% 78%;
+    --ring: 14 56% 44%;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  html.dark .section-spotlight,
+  html.dark .section-charcoal {
+    --background: 222 20% 7%;
+    --foreground: 42 26% 96%;
+    --card: 222 18% 10%;
+    --card-foreground: 42 26% 96%;
+    --popover: 222 18% 10%;
+    --popover-foreground: 42 26% 96%;
+    --muted: 222 14% 14%;
+    --muted-foreground: 220 14% 68%;
+    --primary: 42 26% 96%;
+    --primary-foreground: 222 20% 7%;
+    --secondary: 222 14% 16%;
+    --secondary-foreground: 42 26% 96%;
+    --accent: 14 62% 58%;
+    --accent-foreground: 222 22% 8%;
+    --border: 220 14% 20%;
+    --input: 220 14% 20%;
+    --ring: 42 26% 96%;
+  }
+
+  .section-cta {
+    --background: 16 36% 93%;
+    --foreground: 26 18% 13%;
+    --card: 16 32% 91%;
+    --card-foreground: 26 18% 13%;
+    --popover: 16 32% 91%;
+    --popover-foreground: 26 18% 13%;
+    --muted: 16 28% 88%;
+    --muted-foreground: 26 12% 38%;
+    --primary: 26 18% 13%;
+    --primary-foreground: 42 35% 96%;
+    --secondary: 16 26% 86%;
+    --secondary-foreground: 26 18% 13%;
+    --accent: 14 58% 44%;
+    --accent-foreground: 42 35% 97%;
+    --border: 16 22% 82%;
+    --input: 16 22% 82%;
+    --ring: 14 58% 44%;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  html.dark .section-cta {
+    --background: 18 22% 13%;
+    --foreground: 42 28% 95%;
+    --card: 18 20% 15%;
+    --card-foreground: 42 28% 95%;
+    --popover: 18 20% 15%;
+    --popover-foreground: 42 28% 95%;
+    --muted: 18 18% 18%;
+    --muted-foreground: 42 15% 72%;
+    --primary: 42 28% 95%;
+    --primary-foreground: 18 22% 13%;
+    --secondary: 18 16% 20%;
+    --secondary-foreground: 42 28% 95%;
+    --accent: 14 62% 54%;
+    --accent-foreground: 222 22% 8%;
+    --border: 18 14% 24%;
+    --input: 18 14% 24%;
+    --ring: 14 62% 54%;
+  }
+
+  .section-accent-soft {
+    --background: 14 32% 92%;
+    --card: 14 28% 90%;
+    --muted: 14 26% 87%;
+    --border: 14 22% 82%;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  html.dark .section-accent-soft {
+    --background: 18 22% 14%;
+    --card: 18 20% 16%;
+    --muted: 18 18% 19%;
+    --border: 18 14% 24%;
   }
 
   .text-reveal {
@@ -151,11 +303,53 @@
   .image-reveal.revealed {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
+
+  .experience-disclosure[open] .exp-chevron {
+    transform: rotate(180deg);
+  }
 }
 
-/* Hide default cursor on desktop */
-@media (min-width: 768px) {
-  * {
-    cursor: none !important;
+/* Theme toggle: smooth cross-fade for surfaces (short-lived class from ThemeToggle) */
+html.theme-transition-active body,
+html.theme-transition-active body * {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 0.32s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Lenis smooth scroll required class */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Cursor — native default; CustomCursor removed for clarity & accessibility */
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html.theme-transition-active body,
+  html.theme-transition-active body * {
+    transition-duration: 0.01ms !important;
   }
 }
