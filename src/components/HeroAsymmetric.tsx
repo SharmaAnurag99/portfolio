@@ -179,8 +179,8 @@ export default function HeroAsymmetric() {
               <p className="font-mono text-[10px] md:text-[11px] tracking-[0.42em] uppercase text-muted-foreground mb-5 md:mb-6 max-w-[52ch] leading-relaxed">
                 Full-stack · Blockchain · Systems — shipping production software from Delhi.
               </p>
-              <h1 className="font-display leading-[0.82] tracking-[-0.045em]">
-                <span className="block overflow-hidden">
+              <h1 className="font-display leading-[0.86] tracking-[-0.045em]">
+                <span className="block overflow-visible pb-1">
                   <motion.span
                     variants={wordVariants}
                     className="inline-block text-[clamp(4rem,14vw,13rem)] font-[800] text-foreground"
@@ -189,7 +189,7 @@ export default function HeroAsymmetric() {
                   </motion.span>
                 </span>
                 <span className="block h-px w-[min(42vw,220px)] bg-[hsl(var(--accent))]/35 my-4 md:my-5 ml-[4%]" aria-hidden />
-                <span className="block overflow-hidden mt-1 md:mt-2 pl-[8%]">
+                <span className="block overflow-visible mt-1 md:mt-2 pl-[8%] pb-2">
                   <motion.span
                     variants={wordVariants}
                     className="inline-block text-[clamp(3rem,11vw,10rem)] italic font-light text-[hsl(var(--accent))]"
@@ -262,7 +262,7 @@ export default function HeroAsymmetric() {
               <img
                 src="/myphoto.png"
                 alt="Anurag Sharma"
-                className="w-full h-full object-cover grayscale-[0.4] mix-blend-multiply contrast-[1.05]"
+                className="w-full h-full object-cover grayscale-[0.25] contrast-[1.03] mix-blend-normal dark:grayscale-0 dark:brightness-100 dark:contrast-100"
               />
 
               {/* Tonal warm tint over photo — integrates with background */}

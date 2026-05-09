@@ -25,8 +25,8 @@ const PLACEHOLDER_ROTATION = [
   '/images/project-a.svg',
   '/images/project-b.svg',
   '/images/project-c.svg',
-  '/media/avatar-a.svg',
-  '/media/avatar-b.svg',
+  '/images/avatar-a.svg',
+  '/images/avatar-b.svg',
 ]
 
 export function resolveMediaUrl(media: MediaLike, fallback = '/placeholder.svg'): string {
